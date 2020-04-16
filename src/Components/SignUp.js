@@ -4,7 +4,7 @@ import { doCreateUserWithEmailAndPassword } from "../firebase/FirebaseFunctions"
 import { AuthContext } from "../firebase/Auth";
 import SocialSignIn from './SocialSignin'
 function SignUp() {
-  const currentUser = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [pwMatch, setpwMatch] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ function SignUp() {
     }
   }
   if (currentUser) {
-    return <Redirect to='/home' />
+    return <Redirect to='/foodMain' />
   }
   return (
     <div>
