@@ -5,7 +5,7 @@ import { AuthContext } from '../firebase/Auth'
 import { doSignInWithEmailAndPassword, doPasswordReset } from '../firebase/FirebaseFunctions'
 
 function SignIn() {
-    const currentUser = useContext(AuthContext)
+    const { currentUser } = useContext(AuthContext)
     const handleLogin = async (event) => {
         event.preventDefault();
         let { email, password } = event.target.elements;
