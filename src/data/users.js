@@ -4,13 +4,13 @@ const { ObjectId } = require("mongodb").ObjectId;
 
 async function createFoodInstance(
   UserId,
-  weight = null,
-  height = null,
+  weight,
+  height,
   targetToBeAchieved = null,
   current = null
 ) {
   if (!UserId) throw "You must provide your name for your acocunt";
-
+  console.log("Working");
   const userCollection = await users();
 
   let newUser = {

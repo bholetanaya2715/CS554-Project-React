@@ -100,15 +100,14 @@ router.post("/water/current", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    let id = req.params.id;
-    try {
-        const user = await userMethods.getUserById(id);
-        res.json(user)
-    }
-    catch (e) {
-        res.status(500).json(e)
-    }
-})
+  let id = req.params.id;
+  try {
+    const user = await userMethods.getUserById(id);
+    res.json(user);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
 router.post("/water/cap", async (req, res) => {
   let waterInfo = req.body;
@@ -167,5 +166,9 @@ router.get("/user/:username", async (req, res) => {
   }
 });
 
+router.post("/user/addInforamtion", async (req, res) => {
+  let userInformtion = req.body;
+  console.log(userInformtion);
+});
 
 module.exports = router;
