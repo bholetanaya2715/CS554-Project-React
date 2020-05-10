@@ -1,21 +1,28 @@
 import React, { useState, useEffect, useContext, Component } from "react";
 import SignOutButton from "./SignOut";
 import "../App.css";
+import axios from "axios";
 import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../firebase/Auth";
-import userInformation from "../data/users";
 
 function Account() {
   const { currentUser } = useContext(AuthContext);
   const addInforamtion = async (event) => {
     event.preventDefault();
     let { weight, height } = event.target.elements;
-
-    const val = await userInformation.createFoodInstance(
-      currentUser.email,
-      weight.value,
-      height.value
-    );
+    let information = {
+      userID: currentUser.email,
+      weightData: weight.value,
+      heightData: height.value,
+    };
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/user/addInforamtion",
+        information
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div>
