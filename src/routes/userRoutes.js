@@ -100,15 +100,14 @@ router.post("/water/current", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    let id = req.params.id;
-    try {
-        const user = await userMethods.getUserById(id);
-        res.json(user)
-    }
-    catch (e) {
-        res.status(500).json(e)
-    }
-})
+  let id = req.params.id;
+  try {
+    const user = await userMethods.getUserById(id);
+    res.json(user);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
 router.post("/water/cap", async (req, res) => {
   let waterInfo = req.body;
@@ -167,5 +166,29 @@ router.get("/user/:username", async (req, res) => {
   }
 });
 
+router.post("/user/addInforamtion", async (req, res) => {
+  let userInformation = req.body;
+  const emailId = userInformation.userID;
+  const height = parseInt(userInformation.heightData);
+  const weight = parseInt(userInformation.weightData);
+  if (!emailId || typeof emailId !== "string")
+    throw "You must register an email id.";
+  if (!height || typeof height !== "number")
+    throw "You must provide a valid height.";
+  if (!weight || typeof weight !== "number")
+    throw "You must provide a valid weight.";
+
+  try {
+    const user = await userMethods.createFoodInstance(
+      userInformation.userID,
+      userInformation.weightData,
+      userInformation.heightData
+    );
+    console.log(user);
+    res.json(user);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
 
 module.exports = router;

@@ -3,18 +3,18 @@ const users = mongoCollections.users;
 const { ObjectId } = require("mongodb").ObjectId;
 
 async function createFoodInstance(
-  UserId,
-  weight = null,
-  height = null,
+  userId,
+  weight,
+  height,
   targetToBeAchieved = null,
   current = null
 ) {
-  if (!UserId) throw "You must provide your name for your acocunt";
-
+  console.log(" Data Working");
+  if (!userId) throw "You must provide your name for your acocunt";
   const userCollection = await users();
 
   let newUser = {
-    userId: UserId,
+    userId: userId,
     weight: weight,
     food: [],
     height: height,
@@ -30,7 +30,6 @@ async function createFoodInstance(
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0)
     throw "Could not create food instance for user";
-
   const newId = insertInfo.insertedId;
   const user1 = await getUserById(newId);
   return user1;
