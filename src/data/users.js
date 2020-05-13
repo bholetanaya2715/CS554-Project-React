@@ -1,37 +1,64 @@
 const mongoCollections = require("./mongoCollections");
 const users = mongoCollections.users;
-const { ObjectId } = require("mongodb").ObjectId;
+var ObjectId = require("mongodb").ObjectId;
 
 async function createFoodInstance(
-  UserId,
-  weight = null,
-  height = null,
+  userId,
+  weight,
+  height,
   targetToBeAchieved = null,
   current = null
 ) {
-  if (!UserId) throw "You must provide your name for your acocunt";
-
+  if (!userId || typeof userId !== "string")
+    throw "You must provide your name for your acocunt";
+  if (!height || typeof height !== "number" || height <= 0)
+    throw "You must provide a valid height1.";
+  if (!weight || typeof weight !== "number" || weight <= 0)
+    throw "You must provide a valid weight1.";
   const userCollection = await users();
-
-  let newUser = {
-    userId: UserId,
-    weight: weight,
-    food: [],
-    height: height,
-    targetToBeAchieved: targetToBeAchieved,
-    current: current,
-    water: {
-      waterGoal: 0,
-      waterCurrent: 0,
-      timestamp: "",
-    },
-  };
-
-  const insertInfo = await userCollection.insertOne(newUser);
-  if (insertInfo.insertedCount === 0)
-    throw "Could not create food instance for user";
-
-  const newId = insertInfo.insertedId;
+  const userData = await getUserByUserId(userId);
+  var newId;
+  if (userData == null) {
+    let newUser = {
+      userId: userId,
+      weight: weight,
+      food: [],
+      height: height,
+      targetToBeAchieved: targetToBeAchieved,
+      current: current,
+      water: {
+        waterGoal: 0,
+        waterCurrent: 0,
+        timestamp: "",
+      },
+    };
+    const insertInfo = await userCollection.insertOne(newUser);
+    if (insertInfo.insertedCount === 0)
+      throw "Could not create food instance for user";
+    newId = insertInfo.insertedId;
+  } else {
+    let updateUser = {
+      userId: userId,
+      weight: weight,
+      food: [],
+      height: height,
+      targetToBeAchieved: targetToBeAchieved,
+      current: current,
+      water: {
+        waterGoal: 0,
+        waterCurrent: 0,
+        timestamp: "",
+      },
+    };
+    const updatedInfo = await userCollection.replaceOne(
+      { _id: ObjectId(userData._id) },
+      updateUser
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not update successfully";
+    }
+    newId = userData._id;
+  }
   const user1 = await getUserById(newId);
   return user1;
 }
@@ -43,10 +70,9 @@ async function getUserById(id) {
   return user;
 }
 
-async function getUserByUserName(userName) {
+async function getUserByUserId(userId) {
   const userCollection = await users();
-  const user = await userCollection.findOne({ userName: userName });
-  if (!user) throw "Account with that username not found";
+  const user = await userCollection.findOne({ userId: userId });
   return user;
 }
 
@@ -60,6 +86,6 @@ async function getAllUsers() {
 module.exports = {
   getUserById,
   createFoodInstance,
-  getUserByUserName,
+  getUserByUserId,
   getAllUsers,
 };

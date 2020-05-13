@@ -6,14 +6,15 @@ import FoodMain from "./Components/foodMain";
 import HomePage from "./Components/homePage";
 import ErrorNotFound from "./Components/pageNotFound";
 import "bootstrap/dist/css/bootstrap.min.css";
-import SignUp from './Components/SignUp';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import SignUp from "./Components/SignUp";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import SignIn from "./Components/SignIn";
-import { AuthProvider } from './firebase/Auth';
-import ChangePassword from './Components/ChangePassword'
-import Navigation from './Components/Navigation'
-import PrivateRoute from './Components/PrivateRoutes';
+import { AuthProvider } from "./firebase/Auth";
+import ChangePassword from "./Components/ChangePassword";
+import Navigation from "./Components/Navigation";
+import PrivateRoute from "./Components/PrivateRoutes";
 import Landing from "./Components/Landing";
+import Account from "./Components/Account";
 
 function App() {
   return (
@@ -23,12 +24,9 @@ function App() {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>This is a desperate attempt to code the 554 project</p>
-
           </header>
 
-          <div className='App-body'>
-
-
+          <div className="App-body">
             {/* <Link className="App-link" to="/">
               Home
             </Link>
@@ -45,19 +43,17 @@ function App() {
             <Navigation />
 
             <Switch>
-              <Route exact path='/' exact component={Landing}></Route>
-              <PrivateRoute exact path='/home' exact component={HomePage} />
-              <Route path='/signup' component={SignUp}></Route>
-              <Route path='/signin' component={SignIn}></Route>
+              <Route exact path="/" exact component={Landing}></Route>
+              <PrivateRoute exact path="/home" exact component={HomePage} />
+              <Route path="/signup" component={SignUp}></Route>
+              <Route path="/signin" component={SignIn}></Route>
 
               <PrivateRoute path="/water" exact component={Water} />
-              <PrivateRoute path='/foodMain' exact component={FoodMain} />
+              <PrivateRoute path="/foodMain" exact component={FoodMain} />
+              <PrivateRoute path="/account" exact component={Account} />
               <Route component={ErrorNotFound}></Route>
-
             </Switch>
           </div>
-
-
         </div>
       </Router>
     </AuthProvider>

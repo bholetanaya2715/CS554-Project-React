@@ -54,4 +54,28 @@ router.get("/user/:username", async (req, res) => {
   }
 });
 
+router.post("/user/addInforamtion", async (req, res) => {
+  let userInformation = req.body;
+  const emailId = userInformation.userID;
+  const height = parseInt(userInformation.heightData);
+  const weight = parseInt(userInformation.weightData);
+  if (!emailId || typeof emailId !== "string")
+    throw "You must register an email id.";
+  if (!height || typeof height !== "number" || height <= 0)
+    throw "You must provide a valid height.";
+  if (!weight || typeof weight !== "number" || weight <= 0)
+    throw "You must provide a valid weight.";
+
+  try {
+    const user = await userMethods.createFoodInstance(
+      userInformation.userID,
+      weight,
+      height
+    );
+    res.json(user);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 module.exports = router;
