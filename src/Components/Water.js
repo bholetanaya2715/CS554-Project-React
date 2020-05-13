@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import CounterInput from "react-counter-input";
 import axios from "axios";
+import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
 
 const Water = () => {
@@ -11,6 +12,7 @@ const Water = () => {
   const [waterCapNew, setWaterCapNew] = useState(undefined);
   const [waterOld, setWaterOld] = useState(undefined);
   const [timestamp, setTimestamp] = useState(undefined);
+  const { currentUser } = useContext(AuthContext);
 
   var d = new Date();
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
@@ -21,7 +23,7 @@ const Water = () => {
     async function fetchData() {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/5e921850cba3c3ff5f6610ca"
+          "http://localhost:8000/api/" + currentUser.email
         );
 
         if (data.water.timestamp !== date) {

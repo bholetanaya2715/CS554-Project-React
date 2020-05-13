@@ -72,7 +72,7 @@ router.post("/current", async (req, res) => {
 
 router.post("/cap", async (req, res) => {
   let waterInfo = req.body;
-  console.log("From Routes /water/cap: ", waterInfo);
+  // console.log("From Routes /water/cap: ", waterInfo);
   if (!waterInfo.id) {
     res.status(400).json({ error: "You must provide a id" });
     return;
