@@ -3,8 +3,9 @@ import { Redirect } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/FirebaseFunctions";
 import { AuthContext } from "../firebase/Auth";
 import SocialSignIn from './SocialSignin'
+import Axios from "axios";
 function SignUp() {
-  const { currentUser } = useContext(AuthContext);
+  let { currentUser } = useContext(AuthContext);
   const [pwMatch, setpwMatch] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -15,13 +16,18 @@ function SignUp() {
     }
 
     try {
-      await doCreateUserWithEmailAndPassword(email.value, passwordOne.value, displayName)
+      await doCreateUserWithEmailAndPassword(email.value, passwordOne.value, displayName.value)
+
+      let temp = await Axios.post("http://localhost:8000/api/adduser", { email: email.value, userName: displayName.value })
+      console.log(temp)
+
     } catch (error) {
       alert(error);
     }
   }
   if (currentUser) {
-    return <Redirect to='/foodMain' />
+    console.log(currentUser)
+    return <Redirect to='/account' />
   }
   return (
     <div>
