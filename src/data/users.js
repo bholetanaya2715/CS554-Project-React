@@ -18,8 +18,6 @@ async function createFoodInstance(
   const userCollection = await users();
   const userData = await getUserByUserId(userId);
   var newId;
-  console.log(userData);
-  console.log(newUser);
   if (userData == null) {
     let newUser = {
       userId: userId,
