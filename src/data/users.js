@@ -17,32 +17,44 @@ async function createFoodInstance(
     throw "You must provide a valid weight1.";
   const userCollection = await users();
   const userData = await getUserByUserId(userId);
-  let newUser = {
-    userId: userId,
-    weight: weight,
-    food: [],
-    height: height,
-    targetToBeAchieved: targetToBeAchieved,
-    current: current,
-    water: {
-      waterGoal: 0,
-      waterCurrent: 0,
-      timestamp: "",
-    },
-  };
   var newId;
   console.log(userData);
   console.log(newUser);
   if (userData == null) {
-    console.log("Adding new user!");
+    let newUser = {
+      userId: userId,
+      weight: weight,
+      food: [],
+      height: height,
+      targetToBeAchieved: targetToBeAchieved,
+      current: current,
+      water: {
+        waterGoal: 0,
+        waterCurrent: 0,
+        timestamp: "",
+      },
+    };
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0)
       throw "Could not create food instance for user";
     newId = insertInfo.insertedId;
   } else {
+    let updateUser = {
+      userId: userId,
+      weight: weight,
+      food: [],
+      height: height,
+      targetToBeAchieved: targetToBeAchieved,
+      current: current,
+      water: {
+        waterGoal: 0,
+        waterCurrent: 0,
+        timestamp: "",
+      },
+    };
     const updatedInfo = await userCollection.replaceOne(
       { _id: ObjectId(userData._id) },
-      newUser
+      updateUser
     );
     if (updatedInfo.modifiedCount === 0) {
       throw "Could not update successfully";
