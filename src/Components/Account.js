@@ -9,13 +9,27 @@ function Account() {
     const { currentUser } = useContext(AuthContext);
     const addInforamtion = async (event) => {
         event.preventDefault();
+        let information = {}
         let { weight, height } = event.target.elements;
-        let information = {
-            userID: currentUser.email,
-            displayName: currentUser.displayName,
-            weightData: weight.value,
-            heightData: height.value,
-        };
+        if(currentUser.displayName==null){
+            information = {
+                userID: currentUser.email,
+                displayName: "k",
+                weightData: weight.value,
+                heightData: height.value,
+            };
+        }
+        //deep is commenting
+        
+        else{
+            information = {
+                userID: currentUser.email,
+                displayName: currentUser.displayName,
+                weightData: weight.value,
+                heightData: height.value,
+            };  
+        }
+        
         try {
             const { data } = await axios.post(
                 "http://localhost:8000/api/user/addInforamtion",
