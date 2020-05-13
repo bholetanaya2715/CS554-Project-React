@@ -5,39 +5,25 @@ const userMethods = data.users;
 const accountMethods = data.account;
 const waterMethods = data.water;
 
-router.post("/", async (req, res) => {
-  let userInfo = req.body;
-
-  if (!userInfo.name) {
-    res.status(400).json({ error: "You must provide a name" });
-    return;
-  }
-
-  if (!userInfo.username) {
-    res.status(400).json({ error: "You must provide Username" });
-    return;
-  }
-  if (!userInfo.password) {
-    res.status(400).json({ error: "You must provide password" });
-    return;
-  }
-
+router.post("/adduser", async (req, res) => {
+  console.log("add user route Called")
+  if (!req.body) throw "Error: request body is not provided"
+  if (!req.body.userName) "Error: userName not provided in request body"
+  if (!req.body.email) "Error: email not provided in request body"
   try {
-    const newUser = await accountMethods.createAccount(
-      userInfo.name,
-      userInfo.username,
-      userInfo.password
-    );
-    res.json(newUser);
+    const usr = await userMethods.newAccount(req.body.email, req.body.userName);
+    res.json(usr)
+
   } catch (e) {
-    res.sendStatus(500);
+    console.log(e)
+    res.json({ Error: e });
   }
 });
 
 router.get("/:id", async (req, res) => {
   let id = req.params.id;
   try {
-    const user = await userMethods.getUserById(id);
+    const user = await userMethods.getUserByUserId(id);
     res.json(user);
   } catch (e) {
     res.status(500).json(e);
@@ -56,10 +42,11 @@ router.get("/user/:username", async (req, res) => {
 
 router.post("/user/addInforamtion", async (req, res) => {
   let userInformation = req.body;
-  const emailId = userInformation.userID;
+  const userID = userInformation.userID;
   const height = parseInt(userInformation.heightData);
   const weight = parseInt(userInformation.weightData);
-  if (!emailId || typeof emailId !== "string")
+  const displayName = userInformation.displayName;
+  if (!userID || typeof userID !== "string")
     throw "You must register an email id.";
   if (!height || typeof height !== "number" || height <= 0)
     throw "You must provide a valid height.";
@@ -67,15 +54,18 @@ router.post("/user/addInforamtion", async (req, res) => {
     throw "You must provide a valid weight.";
 
   try {
-    const user = await userMethods.createFoodInstance(
+    const user = await userMethods.addHeightWeight(
       userInformation.userID,
       weight,
-      height
+      height,
+      displayName
     );
     res.json(user);
   } catch (e) {
     res.status(500).json(e);
   }
 });
+
+
 
 module.exports = router;
