@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import CounterInput from "react-counter-input";
 import axios from "axios";
+import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { Int32 } from "mongodb";
 
 const Water = () => {
   const [waterNew, setWaterNew] = useState(undefined);
@@ -11,17 +15,20 @@ const Water = () => {
   const [waterCapNew, setWaterCapNew] = useState(undefined);
   const [waterOld, setWaterOld] = useState(undefined);
   const [timestamp, setTimestamp] = useState(undefined);
+  const [Butstate, setButState] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   var d = new Date();
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
-  // console.log(date);
+  var percentage = Math.ceil((waterCurrent / waterCapCurrent) * 100);
+  console.log(Int32((waterCurrent / waterCapCurrent) * 100));
 
   useEffect(() => {
     console.log("render");
     async function fetchData() {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/5e921850cba3c3ff5f6610ca"
+          "http://localhost:8000/api/" + String(currentUser.email)
         );
 
         if (data.water.timestamp !== date) {
@@ -29,7 +36,7 @@ const Water = () => {
           setWaterOld(data.water.waterCurrent);
 
           let payload = {
-            id: "5e921850cba3c3ff5f6610ca",
+            id: currentUser.email,
             count: 0,
             timestamp: date,
           };
@@ -40,19 +47,21 @@ const Water = () => {
           setWaterCurrent(0);
         }
         setWaterCapCurrent(data.water.waterGoal);
+
         setWaterCurrent(data.water.waterCurrent);
+        // console.log(waterCapCurrent);
         // console.log("logging from useeffect: ", waterCap);
       } catch (e) {
         console.log(e);
       }
     }
     fetchData();
-  }, [waterNew, waterCapNew, date]);
+  }, [waterNew, date, currentUser.email, waterCapCurrent, waterCapNew]);
 
   async function handleClick(e) {
     e.preventDefault();
     let payload = {
-      id: "5e921850cba3c3ff5f6610ca",
+      id: currentUser.email,
       count: waterNew,
       timestamp: date,
     };
@@ -65,9 +74,18 @@ const Water = () => {
     console.log("New Water: ", val.data.water.waterCurrent);
   }
 
+  async function handleClickButState(e) {
+    e.preventDefault();
+
+    setButState(true);
+    if (Butstate === true) {
+      setButState(false);
+    }
+  }
+
   async function handleClickCap(e) {
     e.preventDefault();
-    let payload = { id: "5e921850cba3c3ff5f6610ca", count: waterCapNew };
+    let payload = { id: currentUser.email, count: waterCapNew };
     const val = await axios.post(
       "http://localhost:8000/api/water/cap",
       payload
@@ -75,13 +93,12 @@ const Water = () => {
 
     setWaterCapCurrent(waterCapNew);
     setWaterCurrent(0);
-
+    setButState(false);
     console.log("New Water Cap: ", val.data.water.waterGoal);
   }
 
   return (
     <div>
-      <p>Water Code Would Go Here</p>
       <div>
         {waterCapCurrent === 0 || waterCapCurrent === null ? (
           <div>
@@ -95,11 +112,15 @@ const Water = () => {
                 // max={10}
                 onCountChange={(count) => {
                   setWaterCapNew(count);
+                  setWaterCapCurrent(count);
                 }}
               />
             </div>
-            {waterCapNew === waterCapCurrent ? (
-              <p>Update Value</p>
+            {!waterCapNew ||
+            typeof waterCapNew === "undefined" ||
+            waterCapNew === waterCapCurrent ||
+            typeof waterCapCurrent === "undefined" ? (
+              <p style={{ fontSize: "20px", fontWeight: 900 }}>Update Value</p>
             ) : (
               <div>
                 <p>New Water Cap: {waterCapNew}</p>
@@ -121,8 +142,23 @@ const Water = () => {
             <div></div>
             <div>
               <p>
-                <b>Drinking Water</b>
+                <b style={{ fontSize: "30px", fontWeight: 900 }}>
+                  Track your Daily Water Intake
+                </b>
               </p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: 200,
+                height: 200,
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: "15px",
+              }}
+            >
+              <CircularProgressbar value={percentage} text={`${percentage}%`} />
             </div>
             <div className="outer">
               <CounterInput
@@ -135,7 +171,7 @@ const Water = () => {
               />
             </div>
             {waterNew === waterCurrent ? (
-              <p>Update Value</p>
+              <p style={{ fontSize: "20px", fontWeight: 900 }}>Update Value</p>
             ) : (
               <div>
                 <p>New Water: {waterNew}</p>
@@ -150,7 +186,7 @@ const Water = () => {
               </div>
             )}
 
-            <p>Water Had so far: {waterCurrent}</p>
+            <p style={{ fontWeight: 700 }}>Water Had so far: {waterCurrent}</p>
             <div>
               {waterCurrent === waterCapCurrent ? (
                 <p>
@@ -161,7 +197,9 @@ const Water = () => {
               )}
             </div>
             <div>
-              {timestamp === undefined || timestamp === date ? (
+              {timestamp === undefined ||
+              timestamp === date ||
+              timestamp === "" ? (
                 <p></p>
               ) : (
                 <p>
@@ -170,39 +208,61 @@ const Water = () => {
                 </p>
               )}
             </div>
-            <p>
-              <b>Water Capacity</b>
-            </p>
-            <div className="outer">
-              <CounterInput
-                count={waterCapCurrent}
-                min={0}
-                // max={10}
-                onCountChange={(count) => {
-                  setWaterCapNew(count);
-                }}
-              />
-            </div>
-            {waterCapNew === waterCapCurrent ? (
-              <p>Update Value</p>
-            ) : (
+            <Button
+              variant="primary"
+              style={{ marginBottom: "15px" }}
+              onClick={handleClickButState}
+            >
+              Update Water Capacity
+            </Button>
+            {Butstate === true ? (
               <div>
-                <p>New Water Cap: {waterCapNew}</p>
+                <p>
+                  <b>Water Capacity</b>
+                </p>
+                <div className="outer">
+                  <CounterInput
+                    count={waterCapCurrent}
+                    min={0}
+                    // max={10}
+                    onCountChange={(count) => {
+                      setWaterCapNew(count);
+                    }}
+                  />
+                </div>
+                {!waterCapNew ||
+                typeof waterCapNew === "undefined" ||
+                waterCapNew === waterCapCurrent ||
+                typeof waterCapCurrent === "undefined" ? (
+                  <p style={{ fontSize: "20px", fontWeight: 900 }}>
+                    {" "}
+                    Update Value
+                  </p>
+                ) : (
+                  <div>
+                    <p>New Water Cap: {waterCapNew}</p>
 
-                <Button
-                  variant="primary"
-                  style={{ marginBottom: "15px" }}
-                  onClick={handleClickCap}
-                >
-                  Confirm Quantity
-                </Button>
+                    <Button
+                      variant="primary"
+                      style={{ marginBottom: "15px" }}
+                      onClick={handleClickCap}
+                    >
+                      Confirm Quantity
+                    </Button>
+                  </div>
+                )}
               </div>
+            ) : (
+              <p></p>
             )}
 
-            <p>Water Cap for today: {waterCapCurrent}</p>
+            <p style={{ fontWeight: 700 }}>
+              Water Cap for today: {waterCapCurrent}
+            </p>
           </div>
         )}
       </div>
+      <p>We recommend 8 to 10 glasses per day for a healthy lifestyle</p>
     </div>
   );
 };
