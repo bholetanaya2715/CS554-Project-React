@@ -6,11 +6,11 @@
   height: 80px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -23,6 +23,19 @@
   color: white;
 }
 
+.showlink {
+  padding: 0.4rem 0.8rem;
+  background-color: white;
+  border-radius: 3px;
+  color: #282c34;
+  text-decoration: none !important;
+}
+
+.App-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
 .App-link {
   color: #61dafb;
   margin-right: 5px;
@@ -33,11 +46,11 @@
   text-align: center;
 }
 
-.error{
+.error {
   font-weight: bold;
   color: red !important;
 }
-.forgotPassword{
+.forgotPassword {
   background: none !important;
   border: none !important;
   text-decoration: underline;

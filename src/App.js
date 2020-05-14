@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
+import logo from "./icon.png";
 import "./App.css";
 import Water from "./Components/Water";
 import FoodMain from "./Components/foodMain";
@@ -23,7 +23,8 @@ function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <p>This is a desperate attempt to code the 554 project</p>
+            <p>For a healthy lifestyle</p>
+            <Navigation />
           </header>
 
           <div className="App-body">
@@ -40,7 +41,6 @@ function App() {
               Sign Up
             </Link> */}
             {/* Deep Kakadia- Above routes are shifted to Navigation.js */}
-            <Navigation />
 
             <Switch>
               <Route exact path="/" exact component={Landing}></Route>

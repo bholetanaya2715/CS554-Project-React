@@ -10,28 +10,38 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => (
-  <nav className="navigation">
-    <ul>
-      <li>
-        <NavLink exact to="/water" activeClassName="active">
-          Water
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/foodMain" activeClassName="active">
-          Foodpage
-        </NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/account" activeClassName="active">
-          Account
-        </NavLink>
-      </li>
-      <li>
-        <SignOutButton />
-      </li>
-    </ul>
-  </nav>
+  <div>
+    <nav className="navigation">
+      <NavLink
+        exact
+        to="/water"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        Water
+      </NavLink>
+      <NavLink
+        exact
+        to="/foodMain"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        Foodpage
+      </NavLink>
+      <NavLink
+        exact
+        to="/account"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        Account
+      </NavLink>
+      <SignOutButton />
+    </nav>
+  </div>
 );
 
 const NavigationNonAuth = () => (

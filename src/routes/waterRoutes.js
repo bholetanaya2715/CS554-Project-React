@@ -7,8 +7,10 @@ const accountMethods = data.account;
 
 router.post("/current", async (req, res) => {
   let waterInfo = req.body;
-  console.log("From Routes /water/current : ", waterInfo);
+  console.log(waterInfo);
+  // console.log("From Routes /water/current : ", waterInfo);
   if (!waterInfo.id) {
+    console.log("1");
     res.status(400).json({ error: "You must provide a id" });
     return;
   }
@@ -20,11 +22,15 @@ router.post("/current", async (req, res) => {
     waterInfo.id === null ||
     waterInfo.id === ""
   ) {
+    console.log("2");
+
     res.status(400).json({ error: "Invalid Entry for ID" });
     return;
   }
 
   if (!waterInfo.timestamp) {
+    console.log("3");
+
     res.status(400).json({ error: "You must provide a timestamp" });
     return;
   }
@@ -36,16 +42,11 @@ router.post("/current", async (req, res) => {
     waterInfo.timestamp === null ||
     waterInfo.timestamp === ""
   ) {
+    console.log("4");
     res.status(400).json({ error: "Invalid Entry for ID" });
     return;
   }
 
-  // if (!waterInfo.count) {
-  //   res.status(400).json({ error: "You must provide a Water Count" });
-  //   console.log("3");
-
-  //   return;
-  // }
   if (
     typeof waterInfo.count == "undefined" ||
     typeof waterInfo.count !== "number" ||
@@ -54,6 +55,7 @@ router.post("/current", async (req, res) => {
     waterInfo.count === null ||
     waterInfo.count === ""
   ) {
+    console.log("5");
     res.status(400).json({ error: "Invalid Entry for Water Cup Number" });
     return;
   }
