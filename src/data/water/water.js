@@ -18,7 +18,8 @@ async function setWaterCurrent(id, count, timestamp) {
     throw "Invalid Entry for count current";
 
   const userCollection = await users();
-  const old = await food.getUserById(id);
+  const old = await food.getUserByUserId(id);
+  // console.log(old);
 
   let waterCount = {
     waterGoal: old.water.waterGoal,
@@ -29,6 +30,8 @@ async function setWaterCurrent(id, count, timestamp) {
   let updatedFoodData;
 
   updatedFoodData = {
+    userId: old.userId,
+    displayName: old.displayName,
     weight: old.weight,
     food: old.food,
     height: old.height,
@@ -38,7 +41,7 @@ async function setWaterCurrent(id, count, timestamp) {
   };
 
   const newInsertInformation = await userCollection.updateOne(
-    { _id: ObjectId(id) },
+    { userId: id },
     { $set: updatedFoodData },
     { upsert: true }
   );
@@ -48,7 +51,7 @@ async function setWaterCurrent(id, count, timestamp) {
     throw `Could not update task`;
   }
 
-  return await food.getUserById(id);
+  return await food.getUserByUserId(id);
 }
 
 async function setWaterCap(id, count) {
@@ -58,7 +61,7 @@ async function setWaterCap(id, count) {
     throw "Invalid Entry for count cap";
   } else {
     const userCollection = await users();
-    const old = await food.getUserById(id);
+    const old = await food.getUserByUserId(id);
     let waterCount = {
       waterGoal: count,
       waterCurrent: 0,
@@ -68,6 +71,8 @@ async function setWaterCap(id, count) {
     let updatedFoodData;
 
     updatedFoodData = {
+      userId: old.userId,
+      displayName: old.displayName,
       weight: old.weight,
       food: old.food,
       height: old.height,
@@ -77,7 +82,7 @@ async function setWaterCap(id, count) {
     };
 
     const newInsertInformation = await userCollection.updateOne(
-      { _id: ObjectId(id) },
+      { userId: id },
       { $set: updatedFoodData },
       { upsert: true }
     );
@@ -87,7 +92,7 @@ async function setWaterCap(id, count) {
       throw `Could not update task`;
     }
 
-    return await food.getUserById(id);
+    return await food.getUserByUserId(id);
   }
 }
 

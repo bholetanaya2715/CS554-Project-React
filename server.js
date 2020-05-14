@@ -1,28 +1,31 @@
 const express = require("express");
-const admin = require("firebase-admin")
+const admin = require("firebase-admin");
 const app = express();
 const configRoutes = require("./src/routes");
 const cors = require("cors");
-const bodyparser = require("body-parser")
+const bodyparser = require("body-parser");
 
 app.use(cors());
 
 var serviceAccount = require("./cs-554-project-firebase-adminsdk-k8wmd-ccd7fa09f4.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 
 function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
-    admin.auth().verifyIdToken(req.headers.authtoken)
+    admin
+      .auth()
+      .verifyIdToken(req.headers.authtoken)
       .then(() => {
-        next()
-      }).catch(() => {
-        res.status(403).send('Unauthorized')
+        next();
+      })
+      .catch(() => {
+        res.status(403).send("Unauthorized");
       });
   } else {
-    res.status(403).send('Unauthorized')
+    res.status(403).send("Unauthorized");
   }
 }
 
@@ -48,7 +51,7 @@ function checkAuth(req, res, next) {
 // main();
 
 app.use(express.json());
-app.use(bodyparser.json())
+app.use(bodyparser.json());
 configRoutes(app);
 
 app.listen(8000, () => {
