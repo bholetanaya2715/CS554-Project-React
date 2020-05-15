@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
   let id = req.params.id;
   try {
     const user = await userMethods.getUserByUserId(id);
-    console.log(user);
+    //console.log(user);
     res.json(user);
   } catch (e) {
     res.status(500).json(e);
@@ -41,10 +41,13 @@ router.get("/user/:username", async (req, res) => {
 });
 
 router.post("/user/addInforamtion", async (req, res) => {
+  console.log("addinfo is hit")
+
   let userInformation = req.body;
   const userID = userInformation.userID;
   const height = parseInt(userInformation.heightData);
   const weight = parseInt(userInformation.weightData);
+  const target = parseInt(userInformation.targetData);            //Changes for target
   const displayName = userInformation.displayName;
   if (!userID || typeof userID !== "string")
     throw "You must register an email id.";
@@ -52,13 +55,17 @@ router.post("/user/addInforamtion", async (req, res) => {
     throw "You must provide a valid height.";
   if (!weight || typeof weight !== "number" || weight <= 0)
     throw "You must provide a valid weight.";
+  if (target && typeof target !== "number" || target <= 0)
+    throw "You must provide a valid target calorie.";
+
 
   try {
     const user = await userMethods.addHeightWeight(
       userInformation.userID,
       weight,
       height,
-      displayName
+      displayName,
+      target
     );
     res.json(user);
   } catch (e) {
