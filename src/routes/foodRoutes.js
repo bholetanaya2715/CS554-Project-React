@@ -91,8 +91,12 @@ router.post("/getFoodData", async (req, res) => {
             if(d.food_name == foodInfo.foodQuery) return d;
         });
         let response;
-        let foodResponse = {foods : [JSON.parse(foodItem)]}
-        console.log("foodResponse is ", foodResponse)
+        let foodResponse;
+        if(foodItem != undefined){
+            foodResponse = {foods : [JSON.parse(foodItem)]}
+            console.log("foodResponse is ", foodResponse)
+        }
+        
         if(foodItem == undefined){
             let config = {
                 method: 'post',
