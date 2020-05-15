@@ -84,6 +84,11 @@ function ExamplesNavbar() {
                 </NavLink>
               </NavItem>
               <NavItem>
+                <NavLink to="/signup" tag={Link}>
+                  Create Account
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink to="/landing" tag={Link}>
                   Home
                 </NavLink>
