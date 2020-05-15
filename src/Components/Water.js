@@ -111,7 +111,7 @@ const Water = () => {
                 // max={10}
                 onCountChange={(count) => {
                   setWaterCapNew(count);
-                  setWaterCapCurrent(count);
+                  // setWaterCapCurrent(waterCapNew);
                 }}
               />
             </div>
