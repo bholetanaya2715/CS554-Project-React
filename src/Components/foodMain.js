@@ -154,15 +154,6 @@ const FoodMain = (props) => {
 		[]
     );
     
-    /*useEffect(
-		() => {
-            if(userData != undefined && foodData[0]){
-                console.log("Booooo");
-            }
-		},
-		[foodData]
-	);*/
-
 
     function handleChange(event) {
         setFoodQuery(event.target.value)
