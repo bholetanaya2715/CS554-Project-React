@@ -95,23 +95,14 @@ async function newAccount(email, userName) {
 // }
 
 
-async function addHeightWeight(userId, weight, height, displayName, target) {
+async function addHeightWeight(userId, height, weight, displayName) {
 
   let userCollections = await users();
   let check = await getUserByUserId(userId);
   if (!check) {
     await newAccount(userId, displayName)
   }
-  let status;
-  console.log("target is ", target)
-  //Changes for target
-  if(!target){
-    status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight } })
-  }
-  else{
-    status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight, targetToBeAchieved: target } })
-  }
-  //-------------------------
+  let status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight } })
   if (status.modifiedCount > 0) {
     return await getUserByUserId(userId)
   }

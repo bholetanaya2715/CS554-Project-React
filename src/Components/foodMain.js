@@ -1,51 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../firebase/Auth';
-import axios from "axios";
-
+import React, { useState, useEffect } from 'react';
 
 const FoodMain = (props) => {
     const [ userData, setUserData ] = useState(undefined);
     const [ foodData, setFoodData ] = useState(undefined);
     const [ foodQuery, setFoodQuery ] = useState("");
-    const { currentUser } = useContext(AuthContext);
-    console.log(userData);
-    const userId = currentUser.providerData[0].email;
-    console.log('userid is ' + currentUser.providerData[0].email)
     
-    var d = new Date();
-    var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    //const { register, handleSubmit, watch, errors } = useForm()
+    //const onSubmit = data => { console.log(data) }
+
+    //console.log(watch('example')) // watch input value by passing the name of it
 
     
     async function fetchData() {
-        const res = await fetch("http://localhost:8000/api/" + userId);
+        const res = await fetch("http://localhost:8000/api/5e938fa88336ab21f4d02126");
         res
             .json()
             .then(res => {
                 console.log("response is " + res);
-                if(res.targetToBeAchieved == null){
-                    res.targetToBeAchieved = 2000;
-                    res.current = 0;
-                    updateTarget(res.userId, 2000);
-                }
-                if (res.water.timestamp !== date) {
-                    updateTimestamp(res, date);
-                    updateCurrent(res.userId, res.targetToBeAchieved);
-                }
                 setUserData(res)
             })
             .catch(err => console.log("error is " + err));
-    }
-
-    async function updateTimestamp(res, date){
-        let payload = {
-            id: res.userId,
-            count: res.water.waterCurrent,
-            timestamp: date,
-        };
-        const val = await axios.post(
-            "http://localhost:8000/api/water/current",
-            payload
-        );
     }
 
     async function postData() {
@@ -67,26 +41,25 @@ const FoodMain = (props) => {
     }
 
     async function getFoodData() {
+        const res = await fetch("https://trackapi.nutritionix.com/v2/natural/nutrients",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-app-id' : '5a16d255',
+                'x-app-key' : 'c6d62bf1fa1b98f09f0bd525d1c94007'
+              },            
+            body: JSON.stringify({
+                "query": foodQuery
+            })
+        });
 
-            const res = await fetch("http://localhost:8000/api/food/getFoodData",{
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    "foodQuery": foodQuery
-                })
-            });
-
-            let response = await res.json();
-            console.log("Response from routes is")
-            console.log(response);
-            setFoodData(response.foods);
-            console.log("foodData is");
-            console.log(foodData);
-            updateFoodData(response.foods);
-            
+        let response = await res.json();
+        console.log(response);
+        setFoodData(response.foods);
+        //postFoodData("5e938f628336ab21f4d02124", response.foods);
     }
 
-    async function postFoodData(id, foodArr, target) {
+    async function postFoodData(id, foodArr) {
         console.log("foodData in postFoodData is");
         console.log(foodArr);
         const res = await fetch("http://localhost:8000/api/food",{
@@ -94,74 +67,28 @@ const FoodMain = (props) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 "id": id,
-                "foodArr": foodArr,
-                "target" : target
+                "foodArr": foodArr
                })
         });
 
         let response = await res.json();
         setUserData(response);
     }
-
-    async function updateTarget(id, target) {
-        const res = await fetch("http://localhost:8000/api/food/updateTarget",{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "id": id,
-                "target" : target
-               })
-        });
-        let response = await res.json();
-        setUserData(response);
-    }
-
-    async function updateCurrent(id, current) {
-        const res = await fetch("http://localhost:8000/api/food/updateCurrent",{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "id": id,
-                "current" : current
-               })
-        });
-        let response = await res.json();
-        setUserData(response);
-    }
-
-    async function updateFoodData(foodData) {
-        console.log("foodData")
-                console.log(foodData[0].nf_calories)
-                console.log("userData.targetToBeAchieved")
-                console.log(userData.targetToBeAchieved)
-                if(userData.current == 0){
-                    userData.current = userData.targetToBeAchieved - foodData[0].nf_calories;
-                }
-                else if(userData.current > 0 || userData.current < 0){
-                    userData.current = userData.current - foodData[0].nf_calories;
-                }
-                console.log("UPDATED userdata")
-                console.log(userData)
-                postFoodData(userId, foodData[0], userData.current);
-                setUserData(userData)
-    }
-
 
 	useEffect(
 		() => {
             fetchData();
 		},
 		[]
-    );
-    
+	);
+
 
     function handleChange(event) {
         setFoodQuery(event.target.value)
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         getFoodData();
-        //await updateFoodData();
         event.preventDefault();
     }
 
@@ -171,10 +98,7 @@ const FoodMain = (props) => {
             <div className='show-body'>
                 <h1 className='cap-first-letter'></h1>
                 <p>
-                    Hi {userData && userData.displayName}
-                </p>
-                <p>
-                    Your target for today is {userData && userData.current}
+                    User id is {userData && userData.userId}
                 </p>
                 <div>
 

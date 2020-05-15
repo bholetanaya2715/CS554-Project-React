@@ -1,11 +1,10 @@
 .App {
-    text-align: center;
+  text-align: center;
 }
 
 .App-logo {
-    height: 80px;
+  height: 80px;
 }
-
 
 /* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -14,61 +13,55 @@
 } */
 
 .App-header {
-    background-color: #282c34;
-    height: 175px;
-    /* display: flex; */
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    /* font-size: calc(10px + 2vmin); */
-    color: white;
+  background-color: #282c34;
+  height: 175px;
+  /* display: flex; */
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  /* font-size: calc(10px + 2vmin); */
+  color: white;
 }
 
 .showlink {
-    padding: 0.4rem 0.8rem;
-    background-color: white;
-    border-radius: 3px;
-    color: #282c34;
-    text-decoration: none !important;
+  padding: 0.4rem 0.8rem;
+  background-color: white;
+  border-radius: 3px;
+  color: #282c34;
+  text-decoration: none !important;
 }
 
 .App-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
 }
-
 .App-link {
-    color: #61dafb;
-    margin-right: 5px;
+  color: #61dafb;
+  margin-right: 5px;
 }
 
 .outer {
-    display: inline-block;
-    text-align: center;
+  display: inline-block;
+  text-align: center;
 }
 
 .error {
-    font-weight: bold;
-    color: red !important;
+  font-weight: bold;
+  color: red !important;
 }
-
 .forgotPassword {
-    background: none !important;
-    border: none !important;
-    text-decoration: underline;
-    margin-left: 5px;
+  background: none !important;
+  border: none !important;
+  text-decoration: underline;
+  margin-left: 5px;
 }
 
 @keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.card-style {
-    width: 18rem;
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
