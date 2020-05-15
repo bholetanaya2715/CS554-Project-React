@@ -39,6 +39,7 @@ const NavigationAuth = () => (
       >
         Account
       </NavLink>
+
       <SignOutButton />
     </nav>
   </div>
@@ -46,23 +47,35 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
   <nav className="navigation">
-    <ul>
-      <li>
-        <NavLink exact to="/" activeClassName="active">
-          Landing
-        </NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/signin" activeClassName="active">
-          Sign-In
-        </NavLink>
-      </li>
-      <li>
-        <NavLink exact to="/signup" activeClassName="active">
-          Sign-up
-        </NavLink>
-      </li>
-    </ul>
+    <NavLink
+      exact
+      to="/"
+      activeClassName="active"
+      className="showlink"
+      style={{ marginRight: "10px" }}
+    >
+      Landing
+    </NavLink>
+
+    <NavLink
+      exact
+      to="/signin"
+      activeClassName="active"
+      className="showlink"
+      style={{ marginRight: "10px" }}
+    >
+      Sign-In
+    </NavLink>
+
+    <NavLink
+      exact
+      to="/signup"
+      activeClassName="active"
+      className="showlink"
+      style={{ marginRight: "10px" }}
+    >
+      Sign-up
+    </NavLink>
   </nav>
 );
 
