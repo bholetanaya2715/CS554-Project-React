@@ -67,25 +67,23 @@ const FoodMain = (props) => {
     }
 
     async function getFoodData() {
-        const res = await fetch("https://trackapi.nutritionix.com/v2/natural/nutrients",{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-app-id' : '5a16d255',
-                'x-app-key' : 'c6d62bf1fa1b98f09f0bd525d1c94007'
-              },            
-            body: JSON.stringify({
-                "query": foodQuery
-            })
-        });
 
-        let response = await res.json();
-        console.log(response);
-        setFoodData(response.foods);
-        console.log("foodData is");
-        console.log(foodData);
-        //postFoodData(userId, response.foods[0]);
-        updateFoodData(response.foods);
+            const res = await fetch("http://localhost:8000/api/food/getFoodData",{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    "foodQuery": foodQuery
+                })
+            });
+
+            let response = await res.json();
+            console.log("Response from routes is")
+            console.log(response);
+            setFoodData(response.foods);
+            console.log("foodData is");
+            console.log(foodData);
+            updateFoodData(response.foods);
+            
     }
 
     async function postFoodData(id, foodArr, target) {
