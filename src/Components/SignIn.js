@@ -131,7 +131,6 @@ function SignIn() {
                       block
                       className="btn-round"
                       color="info"
-                      onClick={e => e.preventDefault()}
                       size="lg"
                       id="submitButton" name="submitButton" type="submit"
                     >
