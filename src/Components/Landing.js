@@ -8,26 +8,26 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function Landing() {
-  const [waterCurrent, setWaterCurrent] = useState(undefined);
-  const [waterCapCurrent, setWaterCapCurrent] = useState(undefined);
-  var percentage = Math.ceil((waterCurrent / waterCapCurrent) * 100);
-  const { currentUser } = useContext(AuthContext);
+  // const [waterCurrent, setWaterCurrent] = useState(undefined);
+  // const [waterCapCurrent, setWaterCapCurrent] = useState(undefined);
+  // var percentage = Math.ceil((waterCurrent / waterCapCurrent) * 100);
+  // const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log("render");
-    async function fetchData() {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:8000/api/" + String(currentUser.email)
-        );
-        setWaterCapCurrent(data.water.waterGoal);
-        setWaterCurrent(data.water.waterCurrent);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchData();
-  }, [currentUser.email, waterCurrent, waterCapCurrent]);
+  // useEffect(() => {
+  //   console.log("render");
+  //   async function fetchData() {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "http://localhost:8000/api/" + String(currentUser.email)
+  //       );
+  //       setWaterCapCurrent(data.water.waterGoal);
+  //       setWaterCurrent(data.water.waterCurrent);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [currentUser.email, waterCurrent, waterCapCurrent]);
 
   return (
     <div>
@@ -57,11 +57,11 @@ function Landing() {
                         marginBottom: "15px",
                       }}
                     > */}
-                    <CircularProgressbar
+                    {/* <CircularProgressbar
                       value={percentage}
                       text={`${percentage}%`}
                     />
-                    <p>Total water had today</p>
+                    <p>Total water had today</p> */}
                     {/* </div> */}
                   </Card.Text>
                   <Card.Body>
