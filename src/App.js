@@ -23,7 +23,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <p>hi, welcome aboard to a healthy life</p>
+            <p>Hello, welcome aboard to a healthy life</p>
             <Navigation />
           </header>
 
