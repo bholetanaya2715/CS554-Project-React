@@ -1,13 +1,84 @@
-import React from 'react';
-
-import '../App.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Card, Container, Row, Col } from "react-bootstrap";
+import "../App.css";
 
 function Landing() {
-    return (
-        <div>
-            <h2>This is the Landing page</h2>
-        </div>
-    );
+  return (
+    <div>
+      <h2>This is the Landing page</h2>
+      <div>
+        <Container>
+          <Row>
+            <Col xs={4} md={3}>
+              <NavLink
+                exact
+                to="/water"
+                activeClassName="active"
+                className="showlink"
+                style={{ marginRight: "10px" }}
+              >
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Body>
+                    <Card.Title>Water Module</Card.Title>
+                  </Card.Body>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col xs={4} md={3}>
+              <NavLink
+                exact
+                to="/foodMain"
+                activeClassName="active"
+                className="showlink"
+                style={{ marginRight: "10px" }}
+              >
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Body>
+                    <Card.Title>Food Module</Card.Title>
+                  </Card.Body>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col xs={4} md={3}>
+              <NavLink
+                exact
+                to="/account"
+                activeClassName="active"
+                className="showlink"
+                style={{ marginRight: "10px" }}
+              >
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Body>
+                    <Card.Title>Account Module</Card.Title>
+                  </Card.Body>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col xs={4} md={3}>
+              <NavLink
+                exact
+                to="/histroy"
+                activeClassName="active"
+                className="showlink"
+                style={{ marginRight: "10px" }}
+              >
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Body>
+                    <Card.Title>Histroy Module</Card.Title>
+                  </Card.Body>
+                </Card>
+              </NavLink>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </div>
+  );
 }
 
 export default Landing;
