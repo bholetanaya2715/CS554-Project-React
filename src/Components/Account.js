@@ -10,7 +10,6 @@ function Account() {
   const { currentUser } = useContext(AuthContext);
   const [userHeight, setUserHeight] = useState(undefined);
   const [userWeight, setUserWeight] = useState(undefined);
-  const [userTarget, setUserTarget] = useState(undefined);    //Changes for target
   const [userName, setUserName] = useState(undefined);
 
   const [Butstate, setButState] = useState(false);
@@ -26,7 +25,6 @@ function Account() {
         setUserHeight(data.height);
         setUserWeight(data.weight);
         setUserName(data.displayName);
-        setUserTarget(data.targetToBeAchieved);     //Changes for target
 
         // console.log(userData);
       } catch (e) {
@@ -34,7 +32,7 @@ function Account() {
       }
     }
     fetchData();
-  }, [currentUser.email, userHeight, userWeight, userName, userTarget]);
+  }, [currentUser.email, userHeight, userWeight, userName]);
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -48,14 +46,13 @@ function Account() {
   const addInforamtion = async (event) => {
     event.preventDefault();
     let information = {};
-    let { weight, height, target } = event.target.elements;     //Changes for target
+    let { weight, height } = event.target.elements;
     if (currentUser.displayName == null) {
       information = {
         userID: currentUser.email,
         displayName: "k",
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                      //Changes for target
       };
     }
     //deep is commenting
@@ -65,7 +62,6 @@ function Account() {
         displayName: currentUser.displayName,
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                     //Changes for target
       };
     }
 
@@ -116,22 +112,6 @@ function Account() {
             />
           </label>
         </div>
-
-        {/**Changes made by Sejal */}
-        <div className="form-group">
-          <label>
-            Your Target Calories per day :
-            <input
-              className="form-control"
-              id="target"
-              required
-              name="target"
-              type="number"
-              placeholder={userTarget}
-            />
-          </label>
-        </div>
-        {/**-------------------------- */}
         <button id="submitButton" name="submitButton" type="submit">
           Add Information
         </button>
