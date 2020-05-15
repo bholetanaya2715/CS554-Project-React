@@ -6,16 +6,15 @@ const accountMethods = data.account;
 const waterMethods = data.water;
 
 router.post("/adduser", async (req, res) => {
-  console.log("add user route Called")
-  if (!req.body) throw "Error: request body is not provided"
-  if (!req.body.userName) "Error: userName not provided in request body"
-  if (!req.body.email) "Error: email not provided in request body"
+  console.log("add user route Called");
+  if (!req.body) throw "Error: request body is not provided";
+  if (!req.body.userName) "Error: userName not provided in request body";
+  if (!req.body.email) "Error: email not provided in request body";
   try {
     const usr = await userMethods.newAccount(req.body.email, req.body.userName);
-    res.json(usr)
-
+    res.json(usr);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.json({ Error: e });
   }
 });
@@ -24,6 +23,7 @@ router.get("/:id", async (req, res) => {
   let id = req.params.id;
   try {
     const user = await userMethods.getUserByUserId(id);
+    console.log(user);
     res.json(user);
   } catch (e) {
     res.status(500).json(e);
@@ -65,7 +65,5 @@ router.post("/user/addInforamtion", async (req, res) => {
     res.status(500).json(e);
   }
 });
-
-
 
 module.exports = router;
