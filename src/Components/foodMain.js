@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../firebase/Auth';
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+
 
 
 const FoodMain = (props) => {
@@ -174,7 +176,24 @@ const FoodMain = (props) => {
                     Hi {userData && userData.displayName}
                 </p>
                 <p>
-                    Your target for today is {userData && userData.current}
+                    Your daily target is {userData && userData.targetToBeAchieved}
+                    <br></br>
+                    Click<NavLink
+                        exact
+                        to="/account"
+                        activeClassName="active"
+                        className="showlink"
+                        style={{ marginRight: "10px" }}
+                    >here
+                    </NavLink>to change yout daily target
+                </p>
+                <p>
+                {userData && userData.current > 0 ? (
+                    <p>Your target for today is {userData && userData.current}</p>
+                ) : (
+                    <p className="error-text">You've overrun your today's target by {userData && userData.current*-1} calories</p>
+                )}
+        
                 </p>
                 <div>
 

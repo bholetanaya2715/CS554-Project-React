@@ -72,3 +72,7 @@
 .card-style {
     width: 18rem;
 }
+
+.error-text {
+    color:red
+}
