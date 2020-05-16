@@ -3,11 +3,12 @@ const app = express();
 const configRoutes = require("./src/routes");
 const cors = require("cors");
 const bodyparser = require("body-parser");
+const checkAuth = require("./src/routes/checkAuth")
 
 app.use(cors());
 
 
-// app.use('/', checkAuth)
+app.use('/', checkAuth.checkAuth)
 
 app.use(express.json());
 app.use(bodyparser.json());
