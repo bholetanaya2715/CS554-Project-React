@@ -12,6 +12,7 @@ import {
   Container,
   UncontrolledTooltip
 } from "reactstrap";
+import { Button } from "react-bootstrap";
 
 function ExamplesNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -79,19 +80,19 @@ function ExamplesNavbar() {
           >
             <Nav navbar>
               <NavItem>
-                <NavLink to="/signin" tag={Link}>
+                <Button to="/signin" tag={Link}>
                   Login
-                </NavLink>
+                </Button>
               </NavItem>
-              <NavItem>
-                <NavLink to="/signup" tag={Link}>
+              <NavItem className="navdeep">
+                <Button to="/signup" tag={Link}>
                   Create Account
-                </NavLink>
+                </Button>
               </NavItem>
               <NavItem>
-                <NavLink to="/landing" tag={Link}>
+                <Button to="/landing" tag={Link}>
                   Home
-                </NavLink>
+                </Button>
               </NavItem>
             </Nav>
           </Collapse>

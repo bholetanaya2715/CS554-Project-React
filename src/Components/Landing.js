@@ -82,30 +82,30 @@ function Landing() {
                           src={waterlogo}
                         />
                       ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: 178,
-                            height: 178,
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            marginBottom: "15px",
-                            marginTop: "15px",
-                          }}
-                        >
-                          <CircularProgressbarWithChildren value={percentage}>
-                            <img
-                              style={{ width: 40, marginTop: -5 }}
-                              src={waterDrop}
-                              alt="water logo"
-                            />
-                            <div style={{ fontSize: 20, marginTop: 15 }}>
-                              <strong>{`${percentage}%`}</strong>
-                            </div>
-                          </CircularProgressbarWithChildren>
-                        </div>
-                      )}
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              width: 178,
+                              height: 178,
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                              marginBottom: "15px",
+                              marginTop: "15px",
+                            }}
+                          >
+                            <CircularProgressbarWithChildren value={percentage}>
+                              <img
+                                style={{ width: 40, marginTop: -5 }}
+                                src={waterDrop}
+                                alt="water logo"
+                              />
+                              <div style={{ fontSize: 20, marginTop: 15 }}>
+                                <strong>{`${percentage}%`}</strong>
+                              </div>
+                            </CircularProgressbarWithChildren>
+                          </div>
+                        )}
                       <p>Total water had today</p>
                     </Card.Text>
                     <Card.Body>

@@ -23,6 +23,7 @@ import { doCreateUserWithEmailAndPassword } from "../firebase/FirebaseFunctions"
 import { AuthContext } from "../firebase/Auth";
 import SocialSignIn from './SocialSignin'
 import Axios from "axios";
+
 //css helper function
 
 function SignUp() {
@@ -116,14 +117,14 @@ function SignUp() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("../assets/img/test2.jpg") + ")"
+            backgroundImage: "url(" + require("../assets/img/test3.jpg") + ")"
           }}
         ></div>
         <div className="content">
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <form onSubmit={handleSignUp}>
+                <form autocomplete="new-password" onSubmit={handleSignUp}>
                   <CardBody>
                     <InputGroup
                       className={
