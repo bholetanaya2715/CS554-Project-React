@@ -8,10 +8,12 @@ const foodHistory = data.history;
 const checkAuth = require("./checkAuth")
 
 router.post("/adduser", async (req, res) => {
+  console.log(req.body.email)
   console.log("add user route Called");
   if (!req.body) throw "Error: request body is not provided";
   if (!req.body.userName) "Error: userName not provided in request body";
   if (!req.body.email) "Error: email not provided in request body";
+  console.log(req.body.email)
   try {
     const usr = await userMethods.newAccount(req.body.email, req.body.userName);
     res.json(usr);
