@@ -157,7 +157,7 @@ function Landing() {
               <Col xs={4} md={3}>
                 <NavLink
                   exact
-                  to="/histroy"
+                  to="/foodHistory"
                   activeClassName="active"
                   className="showlink"
                   style={{ marginRight: "10px" }}
