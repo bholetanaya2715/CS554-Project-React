@@ -57,7 +57,15 @@ const NavigationAuth = () => (
       >
         How to Use / About Us
       </NavLink>
-
+      <NavLink
+        exact
+        to="/foodHistory"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        Food History
+      </NavLink>
       <SignOutButton />
     </nav>
   </div>
