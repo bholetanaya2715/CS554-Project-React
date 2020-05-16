@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
-<<<<<<< HEAD
 import { NavLink } from "react-router-dom";
 
 
-=======
 import Navigation from "./Navigation";
 import logo from "../images/icon.png";
->>>>>>> e679c137efabb396976f13de11a4cd97dca69c99
 
 const FoodMain = (props) => {
   const [userData, setUserData] = useState(undefined);
@@ -172,24 +169,45 @@ const FoodMain = (props) => {
         <p>to a healthy life</p>
         <Navigation />
       </header>
-      <div className="show-body">
-        <h1 className="cap-first-letter"></h1>
-        <p>Hi {userData && userData.displayName}</p>
-        <p>Your target for today is {userData && userData.current}</p>
-        <div>
-          <dl className="list-unstyled">
-            {foodData &&
-              foodData.map((food) => {
-                return (
-                  <dt key={food.food_name}>
-                    {food.food_name} had {food.nf_calories} calories
-                    <img alt={food.food_name} src={food.photo.thumb}></img>
-                  </dt>
-                );
-              })}
-          </dl>
-        </div>
-        {/*<form onSubmit={handleSubmit(onSubmit)}>
+      <div className='show-body'>
+                <h1 className='cap-first-letter'></h1>
+                <p>
+                    Hi {userData && userData.displayName}
+                </p>
+                <p>
+                    Your daily target is {userData && userData.targetToBeAchieved}
+                    <br></br>
+                    Click<NavLink
+                        exact
+                        to="/account"
+                        activeClassName="active"
+                        className="showlink"
+                        style={{ marginRight: "10px" }}
+                    >here
+                    </NavLink>to change yout daily target
+                </p>
+                <p>
+                {userData && userData.current > 0 ? (
+                    <p>Your target for today is {userData && userData.current}</p>
+                ) : (
+                    <p className="error-text">You've overrun your today's target by {userData && userData.current*-1} calories</p>
+                )}
+        
+                </p>
+                <div>
+
+                    <dl className='list-unstyled'>
+                        {foodData &&
+                            foodData.map((food) => {
+                                return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
+                                    <img alt={food.food_name} src={food.photo.thumb}></img>
+                                </dt>
+                                );
+                        })}
+                    </dl>
+
+                </div>
+                {/*<form onSubmit={handleSubmit(onSubmit)}>
                     What did you eat today?
                     <input name="example" defaultValue="test" ref={register} />
                 
@@ -198,17 +216,18 @@ const FoodMain = (props) => {
                     <input type="submit" />
                     </form> */}
 
-        <form onSubmit={handleSubmit}>
-          <label>
-            What did you eat today?
-            <br></br>
-            <input type="text" value={foodQuery} onChange={handleChange} />
-          </label>
-          <br></br>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    </div>
+                <form onSubmit={handleSubmit}>
+                <label>
+                    What did you eat today?
+                    <br></br>
+                    <input type="text" value={foodQuery} onChange={handleChange} />
+                </label>
+                <br></br>
+                <input type="submit" value="Submit" />
+
+                </form>
+            </div>
+            </div>
   );
 };
 
