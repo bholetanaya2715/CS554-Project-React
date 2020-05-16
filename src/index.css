@@ -17,7 +17,11 @@ code {
 }
 
 .nav-link{
-  background-color: #949494;  
+  border-radius: 25px;
+  padding: 20px;
+ 
+  background-color: #c38a00;
+  ; 
 }
 
 nav{
