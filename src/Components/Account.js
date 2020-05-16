@@ -14,6 +14,8 @@ function Account() {
   const [userWeight, setUserWeight] = useState(undefined);
   const [userTarget, setUserTarget] = useState(undefined);    //Changes for target
   const [userAge, setUserAge] = useState(undefined);    //Changes for age
+  const [userGender, setUserGender] = useState(undefined);    //Changes for gender
+
 
   const [userName, setUserName] = useState(undefined);
   const [pageState, setPageState] = useState(false);
@@ -33,6 +35,7 @@ function Account() {
         setUserName(data.displayName);
         setUserTarget(data.targetToBeAchieved);     //Changes for target
         setUserAge(data.age);                       //Changes for age
+        setUserGender(data.gender);                       //Changes for age
 
         // console.log(userData);
       } catch (e) {
@@ -47,8 +50,9 @@ function Account() {
     userName,
     userTarget,
     pageState,
-    userAge
-  ]);           //Changes for target and age
+    userAge,
+    userGender
+  ]);           //Changes for target, gender and age
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -59,18 +63,26 @@ function Account() {
     }
   }
 
+  /** Changes for gender */
+  async function onGenderChange(e){
+    setUserGender(e.target.value)
+    console.log(e.target.value)
+  }
+  /** ----------------------- */
+
   const addInforamtion = async (event) => {
     event.preventDefault();
     let information = {};
-    let { weight, height, target, age } = event.target.elements;     //Changes for target and age
+    let { weight, height, target, age, gender } = event.target.elements;     //Changes for target and age
     if (currentUser.displayName == null) {
       information = {
         userID: currentUser.email,
         displayName: "k",
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                      //Changes for target
+        targetData: target.value,                                        //Changes for target
         ageData: age.value,                                             //Changes for age
+        genderData : gender.value,                                     //Changes for gender
       };
     }
     //deep is commenting
@@ -82,8 +94,10 @@ function Account() {
         heightData: height.value,
         targetData: target.value,                                     //Changes for target
         ageData: age.value,                                             //Changes for age
+        genderData : gender.value,                                     //Changes for gender
       };
     }
+    console.log(information)
 
     try {
       const { data } = await axios.post(
@@ -159,7 +173,7 @@ function Account() {
           </label>
         </div>
 
-        {/**Changes made by Sejal */}
+        {/**------------------Changes made by Sejal-------------------- */}
         <div className="form-group">
           <label>
             Age :
@@ -171,6 +185,24 @@ function Account() {
               type="number"
               placeholder={userAge}
             />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Gender :
+            <br/>
+            Female&nbsp;<input type="radio" name="gender"
+                                id="gender"
+                                required
+                                value={"Female"}
+                                onChange={onGenderChange} 
+                                    />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Male&nbsp;<input type="radio" name="gender"
+                                id="gender"
+                                value={"Male"}
+                                onChange={onGenderChange} 
+                                    />
           </label>
         </div>
         <div className="form-group">
@@ -188,7 +220,7 @@ function Account() {
           <br/>
           Not sure of calories? Leave it blank for now!
         </div>
-        {/**-------------------------- */}
+        {/**--------------------------------------------------------- */}
         <button id="submitButton" name="submitButton" type="submit">
           Add Information
         </button>
