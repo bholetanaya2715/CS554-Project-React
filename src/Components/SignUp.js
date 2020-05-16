@@ -139,12 +139,16 @@ function SignUp() {
                       </InputGroupAddon>
                       <Input
                         required
+                        id="displayName"
                         name="displayName"
                         placeholder="Display Name"
                         type="text"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
+                      <label for="displayName">
+
+                      </label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -166,6 +170,9 @@ function SignUp() {
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
+                      <label for="email">
+
+                      </label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -188,6 +195,9 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
+                    <label for="passwordOne">
+
+                    </label>
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -209,6 +219,9 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
+                    <label for="passwordTwo">
+
+                    </label>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
