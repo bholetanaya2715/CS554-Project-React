@@ -5,6 +5,7 @@ const userMethods = data.users;
 const accountMethods = data.account;
 const waterMethods = data.water;
 const foodHistory = data.history;
+const checkAuth = require("./checkAuth")
 
 router.post("/adduser", async (req, res) => {
   console.log("add user route Called");
