@@ -5,6 +5,7 @@ const userMethods = data.users;
 const accountMethods = data.account;
 const waterMethods = data.water;
 const foodHistory = data.history;
+const checkAuth = require("./checkAuth")
 
 router.post("/adduser", async (req, res) => {
   console.log("add user route Called");
@@ -49,6 +50,9 @@ router.post("/user/addInforamtion", async (req, res) => {
   const height = parseInt(userInformation.heightData);
   const weight = parseInt(userInformation.weightData);
   const target = parseInt(userInformation.targetData);            //Changes for target
+  const age = parseInt(userInformation.ageData);                  //Changes for age
+  const gender = userInformation.genderData;                  //Changes for gender
+
   const displayName = userInformation.displayName;
   if (!userID || typeof userID !== "string")
     throw "You must register an email id.";
@@ -56,8 +60,13 @@ router.post("/user/addInforamtion", async (req, res) => {
     throw "You must provide a valid height.";
   if (!weight || typeof weight !== "number" || weight <= 0)
     throw "You must provide a valid weight.";
+  //Changes for age, gender  and target
   if (target && typeof target !== "number" || target <= 0)
     throw "You must provide a valid target calorie.";
+  if (!age || typeof age !== "number" || age <= 0)
+    throw "You must provide a valid age.";
+  if (!gender || typeof gender !== "string" )
+    throw "You must provide a valid gender.";
 
 
   try {
@@ -66,7 +75,9 @@ router.post("/user/addInforamtion", async (req, res) => {
       weight,
       height,
       displayName,
-      target
+      target,
+      age,
+      gender
     );
     res.json(user);
   } catch (e) {
