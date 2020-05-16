@@ -55,9 +55,7 @@ const FoodHistory = (props) => {
 
 
     return (
-        // <Radar data={calorieData} />
         <Line data={calorieData} />
-        // <Radar data={calorieData} />
     )
 }
 
