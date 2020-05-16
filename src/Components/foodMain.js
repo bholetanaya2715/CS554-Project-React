@@ -11,6 +11,7 @@ const FoodMain = (props) => {
   const [userData, setUserData] = useState(undefined);
   const [foodData, setFoodData] = useState(undefined);
   const [foodQuery, setFoodQuery] = useState("");
+  const [message, setMessage] = useState(undefined);
   const { currentUser } = useContext(AuthContext);
   console.log(userData);
   const userId = currentUser.providerData[0].email;
@@ -19,6 +20,14 @@ const FoodMain = (props) => {
   var d = new Date();
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
+  const errorMessage = (food) => {
+    return (
+      <div >
+        Cannot find information for {food}
+      </div>
+    );
+  };
+  
   async function fetchData() {
     let token = await currentUser.getIdToken()
     const res = await fetch("http://localhost:8000/api/" + userId, 
@@ -72,27 +81,43 @@ const FoodMain = (props) => {
 
 
   async function getFoodData() {
-    let token = await currentUser.getIdToken()
-    const res = await fetch("http://localhost:8000/api/food/getFoodData", {
-      method: "POST",
-      headers: {
-        'accept': 'application/json',
-        'Accept-Language': 'en-US,en;q=0.8',
-        'Content-Type': 'application/json',
-        'authtoken': token
-      },
-      body: JSON.stringify({
-        foodQuery: foodQuery,
-      }),
-    });
 
-    let response = await res.json();
-    console.log("Response from routes is");
-    console.log(response);
-    setFoodData(response.foods);
-    console.log("foodData is");
-    console.log(foodData);
-    updateFoodData(response.foods);
+    try{
+      let token = await currentUser.getIdToken()
+      const res = await fetch("http://localhost:8000/api/food/getFoodData", {
+        method: "POST",
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'Content-Type': 'application/json',
+          'authtoken': token
+        },
+        body: JSON.stringify({
+          foodQuery: foodQuery,
+        }),
+      });
+
+      let response = await res.json();
+      console.log("Response from routes is");
+      console.log(response);
+      console.log(response.name)
+      if(response.foods){
+        setMessage(undefined)
+        setFoodData(response.foods);
+        updateFoodData(response.foods);
+      }
+      if(response.name == "Error"){
+        console.log("in this condition")
+        setMessage(errorMessage(foodQuery))
+      }
+      console.log("foodData is");
+      console.log(foodData);
+    }
+    catch(e){
+      console.log(e)
+      setMessage(errorMessage(foodQuery))
+    }
+    
   }
 
   async function postFoodData(id, foodArr, target) {
@@ -223,7 +248,7 @@ const FoodMain = (props) => {
                 <div>
 
                     <dl className='list-unstyled'>
-                        {foodData &&
+                        {!message && foodData &&
                             foodData.map((food) => {
                                 return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
                                     <img alt={food.food_name} src={food.photo.thumb}></img>
@@ -231,6 +256,8 @@ const FoodMain = (props) => {
                                 );
                         })}
                     </dl>
+
+                    {message}
 
                 </div>
                 {/*<form onSubmit={handleSubmit(onSubmit)}>
