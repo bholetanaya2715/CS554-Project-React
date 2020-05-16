@@ -209,7 +209,7 @@ function Account() {
       )}
       <p>
         For security reasons (at the time) you need to add Height, Weight and
-        Calorie Count everytime to change a single value
+        Age everytime to change a single value
       </p>
       {/* <SignOutButton /> */}
     </div>
