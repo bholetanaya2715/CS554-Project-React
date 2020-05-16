@@ -184,7 +184,7 @@ const FoodMain = (props) => {
                         className="showlink"
                         style={{ marginRight: "10px" }}
                     >here
-                    </NavLink>to change yout daily target
+                    </NavLink>to change your daily target
                 </p>
                 <p>
                 {userData && userData.current > 0 ? (

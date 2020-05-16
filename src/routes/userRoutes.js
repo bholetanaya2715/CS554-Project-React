@@ -51,6 +51,7 @@ router.post("/user/addInforamtion", async (req, res) => {
   const weight = parseInt(userInformation.weightData);
   const target = parseInt(userInformation.targetData);            //Changes for target
   const age = parseInt(userInformation.ageData);                  //Changes for age
+  const gender = userInformation.genderData;                  //Changes for gender
 
   const displayName = userInformation.displayName;
   if (!userID || typeof userID !== "string")
@@ -59,11 +60,13 @@ router.post("/user/addInforamtion", async (req, res) => {
     throw "You must provide a valid height.";
   if (!weight || typeof weight !== "number" || weight <= 0)
     throw "You must provide a valid weight.";
-  //Changes for age and target
+  //Changes for age, gender  and target
   if (target && typeof target !== "number" || target <= 0)
     throw "You must provide a valid target calorie.";
-  if (!age || typeof age !== "number" || weight <= 0)
-    throw "You must provide a valid weight.";
+  if (!age || typeof age !== "number" || age <= 0)
+    throw "You must provide a valid age.";
+  if (!gender || typeof gender !== "string" )
+    throw "You must provide a valid gender.";
 
 
   try {
@@ -73,7 +76,8 @@ router.post("/user/addInforamtion", async (req, res) => {
       height,
       displayName,
       target,
-      age
+      age,
+      gender
     );
     res.json(user);
   } catch (e) {
