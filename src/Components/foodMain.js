@@ -20,7 +20,17 @@ const FoodMain = (props) => {
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
   async function fetchData() {
-    const res = await fetch("http://localhost:8000/api/" + userId);
+    let token = await currentUser.getIdToken()
+    const res = await fetch("http://localhost:8000/api/" + userId, 
+    {
+      method: "GET",
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      },
+    });
     res
       .json()
       .then((res) => {
@@ -40,39 +50,37 @@ const FoodMain = (props) => {
   }
 
   async function updateTimestamp(res, date) {
+    let token = await currentUser.getIdToken()
     let payload = {
       id: res.userId,
       count: res.water.waterCurrent,
       timestamp: date,
     };
-    const val = await axios.post(
-      "http://localhost:8000/api/water/current",
-      payload
-    );
+    let config = {
+      method: 'post',
+      url: "http://localhost:8000/api/water/current",
+      data: payload,
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      }
+    }
+    const val = await axios(config);
   }
 
-  async function postData() {
-    const res = await fetch("http://localhost:8000/api", {
-      method: "POST",
-      body: JSON.stringify({
-        name: "Sejal Vyas",
-        username: "blackwidow",
-        password: "myPassword",
-      }),
-    });
-    res
-      .json()
-      .then((res) => {
-        console.log("response is " + res);
-        setUserData(res);
-      })
-      .catch((err) => console.log("error is " + err));
-  }
 
   async function getFoodData() {
+    let token = await currentUser.getIdToken()
     const res = await fetch("http://localhost:8000/api/food/getFoodData", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      },
       body: JSON.stringify({
         foodQuery: foodQuery,
       }),
@@ -88,11 +96,17 @@ const FoodMain = (props) => {
   }
 
   async function postFoodData(id, foodArr, target) {
+    let token = await currentUser.getIdToken()
     console.log("foodData in postFoodData is");
     console.log(foodArr);
     const res = await fetch("http://localhost:8000/api/food", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      },
       body: JSON.stringify({
         id: id,
         foodArr: foodArr,
@@ -105,9 +119,15 @@ const FoodMain = (props) => {
   }
 
   async function updateTarget(id, target) {
+    let token = await currentUser.getIdToken()
     const res = await fetch("http://localhost:8000/api/food/updateTarget", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      },
       body: JSON.stringify({
         id: id,
         target: target,
@@ -118,9 +138,15 @@ const FoodMain = (props) => {
   }
 
   async function updateCurrent(id, current) {
+    let token = await currentUser.getIdToken()
     const res = await fetch("http://localhost:8000/api/food/updateCurrent", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': 'application/json',
+        'authtoken': token
+      },
       body: JSON.stringify({
         id: id,
         current: current,
