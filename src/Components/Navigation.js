@@ -57,17 +57,35 @@ const NavigationNonAuth = () => (
   <nav className="navigation">
     <ul>
       <li>
-        <NavLink exact to="/" activeClassName="active">
+        <NavLink
+          exact
+          to="/"
+          activeClassName="active"
+          className="showlink"
+          style={{ marginRight: "10px" }}
+        >
           Landing
         </NavLink>
       </li>
       <li>
-        <NavLink exact to="/signin" activeClassName="active">
+        <NavLink
+          exact
+          to="/signin"
+          activeClassName="active"
+          className="showlink"
+          style={{ marginRight: "10px" }}
+        >
           Sign-In
         </NavLink>
       </li>
       <li>
-        <NavLink exact to="/signup" activeClassName="active">
+        <NavLink
+          exact
+          to="/signup"
+          activeClassName="active"
+          className="showlink"
+          style={{ marginRight: "10px" }}
+        >
           Sign-up
         </NavLink>
       </li>
