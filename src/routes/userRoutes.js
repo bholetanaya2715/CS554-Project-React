@@ -4,6 +4,7 @@ const data = require("../data");
 const userMethods = data.users;
 const accountMethods = data.account;
 const waterMethods = data.water;
+const foodHistory = data.history;
 
 router.post("/adduser", async (req, res) => {
   console.log("add user route Called");
@@ -78,5 +79,21 @@ router.post("/user/addInforamtion", async (req, res) => {
     res.status(500).json(e);
   }
 });
+
+
+/**
+ * Get user's diet history
+ */
+router.get("/foodHistory/:id", async (req, res) => {
+  let userId = req.params.id;
+  try {
+    console.log("hi")
+    const history = await foodHistory.getUserHistory(userId);
+    res.json(history);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 
 module.exports = router;

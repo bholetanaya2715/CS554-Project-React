@@ -5,6 +5,8 @@ import axios from "axios";
 import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 function Account() {
   const { currentUser } = useContext(AuthContext);
@@ -14,6 +16,7 @@ function Account() {
   const [userAge, setUserAge] = useState(undefined);    //Changes for age
 
   const [userName, setUserName] = useState(undefined);
+  const [pageState, setPageState] = useState(false);
 
   const [Butstate, setButState] = useState(false);
 
@@ -37,7 +40,15 @@ function Account() {
       }
     }
     fetchData();
-  }, [currentUser.email, userHeight, userWeight, userName, userTarget, userAge]);   //Changes for age and target
+  }, [
+    currentUser.email,
+    userHeight,
+    userWeight,
+    userName,
+    userTarget,
+    pageState,
+    userAge
+  ]);           //Changes for target and age
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -79,12 +90,36 @@ function Account() {
         "http://localhost:8000/api/user/addInforamtion",
         information
       );
+
+      alert("Value Updated!");
+      setPageState(true);
+      if (pageState == true) {
+        setPageState(false);
+      }
+      this.forceUpdate();
     } catch (e) {
       console.log(e);
     }
   };
   return (
     <div>
+      {userWeight === 0 ? (
+        <header className="App-header">
+          <a href="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </a>
+          <p>to a healthy life</p>
+        </header>
+      ) : (
+        <header className="App-header">
+          <a href="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </a>
+          <p>to a healthy life</p>
+          <Navigation />
+        </header>
+      )}
+
       <h2>Account Page</h2>
       <form onSubmit={addInforamtion}>
         <div className="form-group">
@@ -99,6 +134,7 @@ function Account() {
           <label>
             Your Height (In cm):
             <input
+              min="1"
               className="form-control"
               id="height"
               required
@@ -112,6 +148,7 @@ function Account() {
           <label>
             Your Weight (In Kg):
             <input
+              min="1"
               className="form-control"
               id="weight"
               required
@@ -140,6 +177,7 @@ function Account() {
           <label>
             Your Target Calories per day :
             <input
+              min="1"
               className="form-control"
               id="target"
               name="target"
@@ -169,6 +207,10 @@ function Account() {
       ) : (
         <p></p>
       )}
+      <p>
+        For security reasons (at the time) you need to add Height, Weight and
+        Calorie Count everytime to change a single value
+      </p>
       {/* <SignOutButton /> */}
     </div>
   );
