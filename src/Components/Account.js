@@ -26,9 +26,18 @@ function Account() {
     console.log("render");
     async function fetchData() {
       try {
-        const { data } = await axios.get(
-          "http://localhost:8000/api/" + String(currentUser.email)
-        );
+        let token = await currentUser.getIdToken()
+        let config = {
+          method: 'get',
+          url: "http://localhost:8000/api/" + String(currentUser.email),
+          headers: {
+            'accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.8',
+            'Content-Type': 'application/json',
+            'authtoken': token
+          }
+        }
+        const { data } = await axios(config);
 
         setUserHeight(data.height);
         setUserWeight(data.weight);
@@ -100,10 +109,19 @@ function Account() {
     console.log(information)
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:8000/api/user/addInforamtion",
-        information
-      );
+      let token = await currentUser.getIdToken()
+      let config = {
+        method: 'post',
+        url: "http://localhost:8000/api/user/addInforamtion",
+        data: information,
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'Content-Type': 'application/json',
+          'authtoken': token
+        }
+      }
+      const { data } = await axios(config);
 
       alert("Value Updated!");
       setPageState(true);
