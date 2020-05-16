@@ -19,6 +19,7 @@
     "firebase-admin": "^8.12.1",
     "mongodb": "^3.5.5",
     "mongodb-client-encryption": "^1.0.1",
+    "pdfkit": "^0.11.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-chartjs-2": "^2.9.0",
