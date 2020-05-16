@@ -6,6 +6,8 @@ import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Navigation from "./Navigation";
+import logo from "../icon.png";
 
 const Water = () => {
   const [waterNew, setWaterNew] = useState(undefined);
@@ -98,6 +100,13 @@ const Water = () => {
 
   return (
     <div>
+      <header className="App-header">
+        <a href="/">
+          <img src={logo} className="App-logo" alt="logo" />
+        </a>
+        <p>to a healthy life</p>
+        <Navigation />
+      </header>
       <div>
         {waterCapCurrent === 0 || waterCapCurrent === null ? (
           <div>
@@ -119,7 +128,7 @@ const Water = () => {
             typeof waterCapNew === "undefined" ||
             waterCapNew === waterCapCurrent ||
             typeof waterCapCurrent === "undefined" ? (
-              <p style={{ fontSize: "20px", fontWeight: 900 }}>Update Value</p>
+              <p style={{ fontSize: "20px" }}>Update Value</p>
             ) : (
               <div>
                 <p>New Water Cap: {waterCapNew}</p>
@@ -140,8 +149,13 @@ const Water = () => {
           <div>
             <div></div>
             <div>
-              <p>
-                <b style={{ fontSize: "30px", fontWeight: 900 }}>
+              <p style={{ marginTop: "20px" }}>
+                <b
+                  style={{
+                    fontSize: "30px",
+                    fontWeight: 900,
+                  }}
+                >
                   Track your Daily Water Intake
                 </b>
               </p>
@@ -155,6 +169,7 @@ const Water = () => {
                 marginLeft: "auto",
                 marginRight: "auto",
                 marginBottom: "15px",
+                marginTop: "10px",
               }}
             >
               <CircularProgressbar value={percentage} text={`${percentage}%`} />
@@ -170,10 +185,10 @@ const Water = () => {
               />
             </div>
             {waterNew === waterCurrent ? (
-              <p style={{ fontSize: "20px", fontWeight: 900 }}>Update Value</p>
+              <p style={{ fontSize: "20px" }}>Update Value</p>
             ) : (
               <div>
-                <p>New Water: {waterNew}</p>
+                <p style={{ fontSize: "20px" }}>New Water: {waterNew}</p>
 
                 <Button
                   variant="primary"
@@ -233,10 +248,7 @@ const Water = () => {
                 typeof waterCapNew === "undefined" ||
                 waterCapNew === waterCapCurrent ||
                 typeof waterCapCurrent === "undefined" ? (
-                  <p style={{ fontSize: "20px", fontWeight: 900 }}>
-                    {" "}
-                    Update Value
-                  </p>
+                  <p style={{ fontSize: "20px" }}> Update Value</p>
                 ) : (
                   <div>
                     <p>New Water Cap: {waterCapNew}</p>
@@ -261,7 +273,9 @@ const Water = () => {
           </div>
         )}
       </div>
-      <p>We recommend 8 to 10 glasses per day for a healthy lifestyle</p>
+      <p style={{ fontWeight: 500 }}>
+        We recommend 8 to 10 glasses per day for a healthy lifestyle
+      </p>
     </div>
   );
 };
