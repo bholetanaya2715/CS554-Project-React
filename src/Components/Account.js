@@ -5,13 +5,16 @@ import axios from "axios";
 import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 function Account() {
   const { currentUser } = useContext(AuthContext);
   const [userHeight, setUserHeight] = useState(undefined);
   const [userWeight, setUserWeight] = useState(undefined);
-  const [userTarget, setUserTarget] = useState(undefined);    //Changes for target
+  const [userTarget, setUserTarget] = useState(undefined); //Changes for target
   const [userName, setUserName] = useState(undefined);
+  const [pageState, setPageState] = useState(false);
 
   const [Butstate, setButState] = useState(false);
 
@@ -26,7 +29,7 @@ function Account() {
         setUserHeight(data.height);
         setUserWeight(data.weight);
         setUserName(data.displayName);
-        setUserTarget(data.targetToBeAchieved);     //Changes for target
+        setUserTarget(data.targetToBeAchieved); //Changes for target
 
         // console.log(userData);
       } catch (e) {
@@ -34,7 +37,14 @@ function Account() {
       }
     }
     fetchData();
-  }, [currentUser.email, userHeight, userWeight, userName, userTarget]);
+  }, [
+    currentUser.email,
+    userHeight,
+    userWeight,
+    userName,
+    userTarget,
+    pageState,
+  ]);
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -48,14 +58,14 @@ function Account() {
   const addInforamtion = async (event) => {
     event.preventDefault();
     let information = {};
-    let { weight, height, target } = event.target.elements;     //Changes for target
+    let { weight, height, target } = event.target.elements; //Changes for target
     if (currentUser.displayName == null) {
       information = {
         userID: currentUser.email,
         displayName: "k",
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                      //Changes for target
+        targetData: target.value, //Changes for target
       };
     }
     //deep is commenting
@@ -65,7 +75,7 @@ function Account() {
         displayName: currentUser.displayName,
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                     //Changes for target
+        targetData: target.value, //Changes for target
       };
     }
 
@@ -74,12 +84,36 @@ function Account() {
         "http://localhost:8000/api/user/addInforamtion",
         information
       );
+
+      alert("Value Updated!");
+      setPageState(true);
+      if (pageState == true) {
+        setPageState(false);
+      }
+      this.forceUpdate();
     } catch (e) {
       console.log(e);
     }
   };
   return (
     <div>
+      {userWeight === 0 ? (
+        <header className="App-header">
+          <a href="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </a>
+          <p>to a healthy life</p>
+        </header>
+      ) : (
+        <header className="App-header">
+          <a href="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </a>
+          <p>to a healthy life</p>
+          <Navigation />
+        </header>
+      )}
+
       <h2>Account Page</h2>
       <form onSubmit={addInforamtion}>
         <div className="form-group">
@@ -94,6 +128,7 @@ function Account() {
           <label>
             Your Height (In cm):
             <input
+              min="1"
               className="form-control"
               id="height"
               required
@@ -107,6 +142,7 @@ function Account() {
           <label>
             Your Weight (In Kg):
             <input
+              min="1"
               className="form-control"
               id="weight"
               required
@@ -122,6 +158,7 @@ function Account() {
           <label>
             Your Target Calories per day :
             <input
+              min="1"
               className="form-control"
               id="target"
               required
@@ -150,6 +187,10 @@ function Account() {
       ) : (
         <p></p>
       )}
+      <p>
+        For security reasons (at the time) you need to add Height, Weight and
+        Calorie Count everytime to change a single value
+      </p>
       {/* <SignOutButton /> */}
     </div>
   );
