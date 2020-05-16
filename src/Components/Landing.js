@@ -6,6 +6,13 @@ import "../App.css";
 import axios from "axios";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import logo from "../images/icon.png";
+import account from "../images/account.png";
+import history from "../images/history.svg";
+import food from "../images/food.png";
+import waterlogo from "../images/water.png";
+import waterDrop from "../images/raindrops.png";
+import SignOutButton from "./SignOut";
 
 function Landing() {
   // const [waterCurrent, setWaterCurrent] = useState(undefined);

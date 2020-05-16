@@ -5,6 +5,8 @@ import axios from "axios";
 import ChangePassword from "./ChangePassword";
 import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 function Account() {
   const { currentUser } = useContext(AuthContext);

@@ -6,6 +6,8 @@ import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 const Water = () => {
   const [waterNew, setWaterNew] = useState(undefined);
