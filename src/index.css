@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.btn-round{
+  background-color: #007cc1 !important;
+}
+
+.nav-link{
+  background-color: #949494;  
+}
+
+nav{
+  font-size: large;
+  font-weight: bolder;
+  background-color: #ffffff;  
+}
+
