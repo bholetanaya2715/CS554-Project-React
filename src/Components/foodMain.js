@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import Navigation from "./Navigation";
-import logo from "../icon.png";
+import logo from "../images/icon.png";
 
 const FoodMain = (props) => {
   const [userData, setUserData] = useState(undefined);

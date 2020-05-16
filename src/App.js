@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, Component } from "react";
-import logo from "./icon.png";
+import logo from "./images/icon.png";
 import "./App.css";
 import Water from "./Components/Water";
 import About from "./Components/About";
