@@ -11,6 +11,8 @@ function Account() {
   const [userHeight, setUserHeight] = useState(undefined);
   const [userWeight, setUserWeight] = useState(undefined);
   const [userTarget, setUserTarget] = useState(undefined);    //Changes for target
+  const [userAge, setUserAge] = useState(undefined);    //Changes for age
+
   const [userName, setUserName] = useState(undefined);
 
   const [Butstate, setButState] = useState(false);
@@ -27,6 +29,7 @@ function Account() {
         setUserWeight(data.weight);
         setUserName(data.displayName);
         setUserTarget(data.targetToBeAchieved);     //Changes for target
+        setUserAge(data.age);                       //Changes for age
 
         // console.log(userData);
       } catch (e) {
@@ -34,7 +37,7 @@ function Account() {
       }
     }
     fetchData();
-  }, [currentUser.email, userHeight, userWeight, userName, userTarget]);
+  }, [currentUser.email, userHeight, userWeight, userName, userTarget, userAge]);   //Changes for age and target
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -48,7 +51,7 @@ function Account() {
   const addInforamtion = async (event) => {
     event.preventDefault();
     let information = {};
-    let { weight, height, target } = event.target.elements;     //Changes for target
+    let { weight, height, target, age } = event.target.elements;     //Changes for target and age
     if (currentUser.displayName == null) {
       information = {
         userID: currentUser.email,
@@ -56,6 +59,7 @@ function Account() {
         weightData: weight.value,
         heightData: height.value,
         targetData: target.value,                                      //Changes for target
+        ageData: age.value,                                             //Changes for age
       };
     }
     //deep is commenting
@@ -66,6 +70,7 @@ function Account() {
         weightData: weight.value,
         heightData: height.value,
         targetData: target.value,                                     //Changes for target
+        ageData: age.value,                                             //Changes for age
       };
     }
 
@@ -120,16 +125,30 @@ function Account() {
         {/**Changes made by Sejal */}
         <div className="form-group">
           <label>
+            Age :
+            <input
+              className="form-control"
+              id="age"
+              required
+              name="age"
+              type="number"
+              placeholder={userAge}
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
             Your Target Calories per day :
             <input
               className="form-control"
               id="target"
-              required
               name="target"
               type="number"
               placeholder={userTarget}
             />
           </label>
+          <br/>
+          Not sure of calories? Leave it blank for now!
         </div>
         {/**-------------------------- */}
         <button id="submitButton" name="submitButton" type="submit">
