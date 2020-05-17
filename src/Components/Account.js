@@ -15,6 +15,7 @@ function Account() {
   const [userTarget, setUserTarget] = useState(undefined); //Changes for target
   const [userAge, setUserAge] = useState(undefined); //Changes for age
   const [userGender, setUserGender] = useState(undefined); //Changes for gender
+  const [genderVal, setGenderVal] = useState(undefined); //Changes for gender
 
   const [userName, setUserName] = useState(undefined);
   const [pageState, setPageState] = useState(false);
@@ -44,7 +45,8 @@ function Account() {
         setUserTarget(data.targetToBeAchieved); //Changes for target
         setUserAge(data.age); //Changes for age
         setUserGender(data.gender); //Changes for age
-        console.log(userGender);
+        setGenderVal(data.gender);
+        console.log(genderVal);
 
         // console.log(userData);
       } catch (e) {
@@ -62,6 +64,7 @@ function Account() {
     userAge,
     userGender,
     currentUser,
+    genderVal,
   ]); //Changes for target, gender and age
 
   async function handleClickButState(e) {
@@ -248,50 +251,79 @@ function Account() {
           {userGender === "" ||
           userGender === null ||
           userGender === undefined ? (
-            <label>
-              Gender :
-              <br />
-              Female&nbsp;
-              <input
-                type="radio"
-                name="gender"
-                id="gender"
-                required
-                defaultChecked
-                value={"Female"}
-                onChange={onGenderChange}
-              />
-              &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
-              <input
-                type="radio"
-                name="gender"
-                required
-                id="gender"
-                value={"Male"}
-                onChange={onGenderChange}
-              />
-            </label>
+            <div>
+              <label>
+                Gender :
+                <br />
+                Female&nbsp;
+                <input
+                  type="radio"
+                  name="gender"
+                  id="gender"
+                  required
+                  defaultChecked
+                  value={"Female"}
+                  onChange={onGenderChange}
+                />
+                &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+                <input
+                  type="radio"
+                  name="gender"
+                  required
+                  id="gender"
+                  value={"Male"}
+                  onChange={onGenderChange}
+                />
+              </label>
+            </div>
           ) : (
-            <label>
-              Gender :
-              <br />
-              Female&nbsp;
-              <input
-                type="radio"
-                name="gender"
-                id="gender"
-                value={"Female"}
-                onChange={onGenderChange}
-              />
-              &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
-              <input
-                type="radio"
-                name="gender"
-                id="gender"
-                value={"Male"}
-                onChange={onGenderChange}
-              />
-            </label>
+            <div>
+              {genderVal === "Female" ? (
+                <label>
+                  Gender :
+                  <br />
+                  Female&nbsp;
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    defaultChecked
+                    value={"Female"}
+                    onChange={onGenderChange}
+                  />
+                  &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    value={"Male"}
+                    onChange={onGenderChange}
+                  />
+                </label>
+              ) : (
+                <label>
+                  Gender :
+                  <br />
+                  Female&nbsp;
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    value={"Female"}
+                    onChange={onGenderChange}
+                  />
+                  &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    defaultChecked
+                    value={"Male"}
+                    onChange={onGenderChange}
+                  />
+                </label>
+              )}
+            </div>
           )}
         </div>
         <div className="form-group">
