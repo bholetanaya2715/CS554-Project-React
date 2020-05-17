@@ -11,7 +11,7 @@ import {
   InputGroupText,
   InputGroup,
   Container,
-  Col
+  Col,
 } from "reactstrap";
 
 // core components
@@ -21,7 +21,7 @@ import TransparentFooter from "./Footers/TransparentFooter.js";
 import { Redirect } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/FirebaseFunctions";
 import { AuthContext } from "../firebase/Auth";
-import SocialSignIn from './SocialSignin'
+import SocialSignIn from "./SocialSignin";
 import Axios from "axios";
 
 //css helper function
@@ -47,67 +47,66 @@ function SignUp() {
     const userData = async () => {
       try {
         if (currentUser) {
-          console.log("called: add user")
+          console.log("called: add user");
 
-          addUser()
+          addUser();
         }
+      } catch (e) {
+        console.log(e);
       }
-      catch (e) {
-        console.log(e)
-      }
-    }
-    userData()
-  }, [currentUser])
-
+    };
+    userData();
+  }, [currentUser]);
 
   const [pwMatch, setpwMatch] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
     const { displayName, email, passwordOne, passwordTwo } = e.target.elements;
     if (passwordOne.value !== passwordTwo.value) {
-      setpwMatch('Password do not match');
+      setpwMatch("Password do not match");
       return false;
     }
 
     try {
       // setdataEmail(email.value)
-      setdataUser(displayName.value)
-      await doCreateUserWithEmailAndPassword(email.value, passwordOne.value, displayName.value)
+      setdataUser(displayName.value);
+      await doCreateUserWithEmailAndPassword(
+        email.value,
+        passwordOne.value,
+        displayName.value
+      );
       // let temp = await Axios.post("http://localhost:8000/api/adduser", { email: email.value, userName: displayName.value })
       // console.log(temp)
-
-
     } catch (error) {
       alert(error);
     }
-  }
+  };
 
   const addUser = async () => {
-    let token = await currentUser.getIdToken()
-    let dn
+    let token = await currentUser.getIdToken();
+    let dn;
     if (!currentUser.displayName) {
-      dn = dataUser
+      dn = dataUser;
+    } else {
+      dn = currentUser.displayName;
     }
-    else {
-      dn = currentUser.displayName
-    }
-    const { temp } = await Axios.post("http://localhost:8000/api/adduser",
+    const { temp } = await Axios.post(
+      "http://localhost:8000/api/adduser",
       { email: currentUser.email, userName: dn },
       {
         headers: {
-          'accept': 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'Content-Type': 'application/json',
-          'authtoken': token
-        }
-      });
-  }
-
-
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": "application/json",
+          authtoken: token,
+        },
+      }
+    );
+  };
 
   if (currentUser) {
-    console.log(currentUser)
-    return <Redirect to='/account' />
+    console.log(currentUser);
+    return <Redirect to="/account" />;
   }
   return (
     <>
@@ -117,7 +116,7 @@ function SignUp() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("../assets/img/test3.jpg") + ")"
+            backgroundImage: "url(" + require("../assets/img/test3.jpg") + ")",
           }}
         ></div>
         <div className="content">
@@ -146,9 +145,7 @@ function SignUp() {
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
-                      <label for="displayName">
-
-                      </label>
+                      <label for="displayName"></label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -163,16 +160,14 @@ function SignUp() {
                       </InputGroupAddon>
                       <Input
                         required
-                        id='email'
+                        id="email"
                         name="email"
                         type="email"
                         placeholder="Email"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
-                      <label for="email">
-
-                      </label>
+                      <label for="email"></label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -195,9 +190,7 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
-                    <label for="passwordOne">
-
-                    </label>
+                    <label for="passwordOne"></label>
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -219,9 +212,7 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
-                    <label for="passwordTwo">
-
-                    </label>
+                    <label for="passwordTwo"></label>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -229,12 +220,13 @@ function SignUp() {
                       className="btn-round"
                       color="info"
                       size="lg"
-                      id="submitButton" name="submitButton" type="submit"
+                      id="submitButton"
+                      name="submitButton"
+                      type="submit"
                     >
                       Sign Up
-                  </Button>
+                    </Button>
                     <SocialSignIn />
-
                   </CardFooter>
                 </form>
               </Card>
@@ -305,7 +297,6 @@ function SignUp() {
         <br />
        
       </div> */}
-
     </>
   );
 }

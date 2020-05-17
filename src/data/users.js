@@ -2,12 +2,11 @@ const mongoCollections = require("./mongoCollections");
 const users = mongoCollections.users;
 var ObjectId = require("mongodb").ObjectId;
 
-
-
 async function newAccount(email, userName) {
-  if (typeof email != 'string') throw "Error: email should be of type string"
-  console.log(userName)
-  if (typeof userName !== 'string') throw "Error: username should be of type string"
+  if (typeof email != "string") throw "Error: email should be of type string";
+  console.log(userName);
+  if (typeof userName !== "string")
+    throw "Error: username should be of type string";
 
   let newObj = {
     userId: email,
@@ -15,24 +14,24 @@ async function newAccount(email, userName) {
     weight: 0,
     food: [],
     height: 0,
-    targetToBeAchieved: null,
+    targetToBeAchieved: 0,
     current: null,
+    waterArchive: [],
     water: {
       waterGoal: 0,
       waterCurrent: 0,
       timestamp: "",
     },
-    age:1,
-    gender:""
+    age: 0,
+    gender: "",
   };
 
   let userCollection = await users();
   let newUser = await userCollection.insertOne(newObj);
   if (newUser.insertedCount > 0) {
     return await getUserById(newUser.insertedId);
-  }
-  else {
-    throw "Error: user was not inserted"
+  } else {
+    throw "Error: user was not inserted";
   }
 }
 
@@ -96,32 +95,57 @@ async function newAccount(email, userName) {
 //   return user1;
 // }
 
-
-async function addHeightWeight(userId, weight, height, displayName, target, age, gender) {
-
+async function addHeightWeight(
+  userId,
+  weight,
+  height,
+  displayName,
+  target,
+  age,
+  gender
+) {
   let userCollections = await users();
   let check = await getUserByUserId(userId);
   if (!check) {
-    await newAccount(userId, displayName)
+    await newAccount(userId, displayName);
   }
   let status;
-  console.log("target is ", target)
+  console.log("target is ", target);
   //Changes for target
-  if(!target){
-    status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight, age:age, gender: gender } })
-  }
-  else{
-    status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight, targetToBeAchieved: target, age:age, gender:gender } })
+  if (!target) {
+    status = await userCollections.updateOne(
+      { userId: userId },
+      { $set: { height: height, weight: weight, age: age, gender: gender } }
+    );
+  } else {
+    status = await userCollections.updateOne(
+      { userId: userId },
+      {
+        $set: {
+          height: height,
+          weight: weight,
+          targetToBeAchieved: target,
+          age: age,
+          gender: gender,
+        },
+      }
+    );
   }
   //-------------------------
+
   if (status.modifiedCount > 0) {
-    return await getUserByUserId(userId)
+    return await getUserByUserId(userId);
   }
-  else {
-    throw "Error: user was not updated"
+  //Changes for multiple attempts
+  if (
+    (status.modifiedCount === 0 || status.modifiedCount == undefined) &&
+    status.matchedCount == 1
+  ) {
+    console.log("Multiple attempts to update information");
+  } else {
+    throw "Error: user was not updated";
   }
 }
-
 
 async function getUserById(id) {
   const userCollection = await users();
@@ -148,5 +172,5 @@ module.exports = {
   getUserByUserId,
   getAllUsers,
   newAccount,
-  addHeightWeight
+  addHeightWeight,
 };
