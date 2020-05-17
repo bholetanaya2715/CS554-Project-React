@@ -3,6 +3,8 @@ import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 
 
