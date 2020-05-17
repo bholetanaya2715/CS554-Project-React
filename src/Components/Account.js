@@ -257,6 +257,7 @@ function Account() {
                 name="gender"
                 id="gender"
                 required
+                defaultChecked
                 value={"Female"}
                 onChange={onGenderChange}
               />
