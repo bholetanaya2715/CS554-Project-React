@@ -6,12 +6,13 @@ const bodyparser = require("body-parser");
 const checkAuth = require("./src/routes/checkAuth")
 
 app.use(cors());
+// app.use(express.static('./public'))
 
-
-app.use('/', checkAuth.checkAuth)
-
+// app.use('/', checkAuth.checkAuth)
+console.log('dir__' + __dirname)
 app.use(express.json());
 app.use(bodyparser.json());
+// app.use(express.static(__dirname + '/public'))
 configRoutes(app);
 
 app.listen(8000, () => {
