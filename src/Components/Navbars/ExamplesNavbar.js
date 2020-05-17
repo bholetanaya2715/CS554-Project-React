@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Collapse,
-
   NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
   Nav,
   Container,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 
 function ExamplesNavbar() {
@@ -48,15 +47,12 @@ function ExamplesNavbar() {
       ) : null}
       <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
         <Container>
-
           <div className="navbar-translate">
             <NavbarBrand
               href="https://demos.creative-tim.com/now-ui-kit-react/index?ref=nukr-examples-navbar"
               target="_blank"
               id="navbar-brand"
-            >
-
-            </NavbarBrand>
+            ></NavbarBrand>
 
             <button
               className="navbar-toggler navbar-toggler"
@@ -88,11 +84,11 @@ function ExamplesNavbar() {
                   Create Account
                 </NavLink>
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink to="/landing" tag={Link}>
                   Home
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
             </Nav>
           </Collapse>
         </Container>

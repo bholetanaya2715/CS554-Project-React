@@ -12,10 +12,9 @@ function Account() {
   const { currentUser } = useContext(AuthContext);
   const [userHeight, setUserHeight] = useState(undefined);
   const [userWeight, setUserWeight] = useState(undefined);
-  const [userTarget, setUserTarget] = useState(undefined);    //Changes for target
-  const [userAge, setUserAge] = useState(undefined);    //Changes for age
-  const [userGender, setUserGender] = useState(undefined);    //Changes for gender
-
+  const [userTarget, setUserTarget] = useState(undefined); //Changes for target
+  const [userAge, setUserAge] = useState(undefined); //Changes for age
+  const [userGender, setUserGender] = useState(undefined); //Changes for gender
 
   const [userName, setUserName] = useState(undefined);
   const [pageState, setPageState] = useState(false);
@@ -26,16 +25,26 @@ function Account() {
     console.log("render");
     async function fetchData() {
       try {
+        let token = await currentUser.getIdToken();
+
         const { data } = await axios.get(
-          "http://localhost:8000/api/" + String(currentUser.email)
+          "http://localhost:8000/api/" + String(currentUser.email),
+          {
+            headers: {
+              accept: "application/json",
+              "Accept-Language": "en-US,en;q=0.8",
+              "Content-Type": "multipart/form-data",
+              authtoken: token,
+            },
+          }
         );
 
         setUserHeight(data.height);
         setUserWeight(data.weight);
         setUserName(data.displayName);
-        setUserTarget(data.targetToBeAchieved);     //Changes for target
-        setUserAge(data.age);                       //Changes for age
-        setUserGender(data.gender);                       //Changes for age
+        setUserTarget(data.targetToBeAchieved); //Changes for target
+        setUserAge(data.age); //Changes for age
+        setUserGender(data.gender); //Changes for age
 
         // console.log(userData);
       } catch (e) {
@@ -51,8 +60,9 @@ function Account() {
     userTarget,
     pageState,
     userAge,
-    userGender
-  ]);           //Changes for target, gender and age
+    userGender,
+    currentUser,
+  ]); //Changes for target, gender and age
 
   async function handleClickButState(e) {
     e.preventDefault();
@@ -64,25 +74,25 @@ function Account() {
   }
 
   /** Changes for gender */
-  async function onGenderChange(e){
-    setUserGender(e.target.value)
-    console.log(e.target.value)
+  async function onGenderChange(e) {
+    setUserGender(e.target.value);
+    console.log(e.target.value);
   }
   /** ----------------------- */
 
   const addInforamtion = async (event) => {
     event.preventDefault();
     let information = {};
-    let { weight, height, target, age, gender } = event.target.elements;     //Changes for target and age
+    let { weight, height, target, age, gender } = event.target.elements; //Changes for target and age
     if (currentUser.displayName == null) {
       information = {
         userID: currentUser.email,
         displayName: "k",
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                        //Changes for target
-        ageData: age.value,                                             //Changes for age
-        genderData : gender.value,                                     //Changes for gender
+        targetData: target.value, //Changes for target
+        ageData: age.value, //Changes for age
+        genderData: gender.value, //Changes for gender
       };
     }
     //deep is commenting
@@ -92,12 +102,12 @@ function Account() {
         displayName: currentUser.displayName,
         weightData: weight.value,
         heightData: height.value,
-        targetData: target.value,                                     //Changes for target
-        ageData: age.value,                                             //Changes for age
-        genderData : gender.value,                                     //Changes for gender
+        targetData: target.value, //Changes for target
+        ageData: age.value, //Changes for age
+        genderData: gender.value, //Changes for gender
       };
     }
-    console.log(information)
+    console.log(information);
 
     try {
       const { data } = await axios.post(
@@ -180,6 +190,7 @@ function Account() {
             <input
               className="form-control"
               id="age"
+              min="1"
               required
               name="age"
               type="number"
@@ -190,19 +201,24 @@ function Account() {
         <div className="form-group">
           <label>
             Gender :
-            <br/>
-            Female&nbsp;<input type="radio" name="gender"
-                                id="gender"
-                                required
-                                value={"Female"}
-                                onChange={onGenderChange} 
-                                    />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Male&nbsp;<input type="radio" name="gender"
-                                id="gender"
-                                value={"Male"}
-                                onChange={onGenderChange} 
-                                    />
+            <br />
+            Female&nbsp;
+            <input
+              type="radio"
+              name="gender"
+              id="gender"
+              required
+              value={"Female"}
+              onChange={onGenderChange}
+            />
+            &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+            <input
+              type="radio"
+              name="gender"
+              id="gender"
+              value={"Male"}
+              onChange={onGenderChange}
+            />
           </label>
         </div>
         <div className="form-group">
@@ -217,7 +233,7 @@ function Account() {
               placeholder={userTarget}
             />
           </label>
-          <br/>
+          <br />
           Not sure of calories? Leave it blank for now!
         </div>
         {/**--------------------------------------------------------- */}
@@ -225,9 +241,13 @@ function Account() {
           Add Information
         </button>
       </form>
+      <p>
+        For security reasons (at the time) you need to add Height, Weight and
+        Age everytime to change a single value
+      </p>
       <Button
         variant="primary"
-        style={{ marginBottom: "15px", marginTop: "15px" }}
+        style={{ marginBottom: "15px", marginTop: "5px" }}
         onClick={handleClickButState}
       >
         Update Password
@@ -239,10 +259,7 @@ function Account() {
       ) : (
         <p></p>
       )}
-      <p>
-        For security reasons (at the time) you need to add Height, Weight and
-        Age everytime to change a single value
-      </p>
+
       {/* <SignOutButton /> */}
     </div>
   );

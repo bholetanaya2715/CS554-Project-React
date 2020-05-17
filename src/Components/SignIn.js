@@ -18,7 +18,7 @@ import {
   InputGroupText,
   InputGroup,
   Container,
-  Col
+  Col,
 } from "reactstrap";
 import ExamplesNavbar from "./Navbars/ExamplesNavbar.js";
 import TransparentFooter from "./Footers/TransparentFooter.js";
@@ -49,7 +49,7 @@ function SignIn() {
     }
   };
   if (currentUser) {
-    return <Redirect to="/foodMain" />;
+    return <Redirect to="/" />;
   }
   const passwordReset = async (event) => {
     event.preventDefault();
@@ -72,7 +72,7 @@ function SignIn() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("../assets/img/login.jpg") + ")"
+            backgroundImage: "url(" + require("../assets/img/login.jpg") + ")",
           }}
         ></div>
         <div className="content">
@@ -81,7 +81,6 @@ function SignIn() {
               <Card className="card-login card-plain">
                 <form onSubmit={handleLogin}>
                   <CardBody>
-
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -95,7 +94,7 @@ function SignIn() {
                       </InputGroupAddon>
                       <Input
                         required
-                        id='email'
+                        id="email"
                         name="email"
                         type="email"
                         placeholder="Email"
@@ -124,7 +123,6 @@ function SignIn() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
-
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -132,20 +130,21 @@ function SignIn() {
                       className="btn-round"
                       color="info"
                       size="lg"
-                      id="submitButton" name="submitButton" type="submit"
+                      id="submitButton"
+                      name="submitButton"
+                      type="submit"
                     >
                       Sign In
-                </Button>
+                    </Button>
                     <Button
                       block
                       className="btn-round"
                       color="info"
                       onClick={passwordReset}
                       size="lg"
-
                     >
                       Forgot password
-                </Button>
+                    </Button>
                     <SocialSignIn />
                   </CardFooter>
                 </form>

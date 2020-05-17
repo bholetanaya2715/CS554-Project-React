@@ -28,8 +28,17 @@ const Water = () => {
     console.log("render");
     async function fetchData() {
       try {
+        let token = await currentUser.getIdToken();
         const { data } = await axios.get(
-          "http://localhost:8000/api/" + String(currentUser.email)
+          "http://localhost:8000/api/" + String(currentUser.email),
+          {
+            headers: {
+              accept: "application/json",
+              "Accept-Language": "en-US,en;q=0.8",
+              "Content-Type": "multipart/form-data",
+              authtoken: token,
+            },
+          }
         );
 
         if (data.water.timestamp !== date) {
@@ -43,7 +52,15 @@ const Water = () => {
           };
           const val = await axios.post(
             "http://localhost:8000/api/water/current",
-            payload
+            {
+              payload,
+              headers: {
+                accept: "application/json",
+                "Accept-Language": "en-US,en;q=0.8",
+                "Content-Type": "multipart/form-data",
+                authtoken: token,
+              },
+            }
           );
           setWaterCurrent(0);
         }
@@ -57,7 +74,14 @@ const Water = () => {
       }
     }
     fetchData();
-  }, [waterNew, date, currentUser.email, waterCapCurrent, waterCapNew]);
+  }, [
+    waterNew,
+    date,
+    currentUser.email,
+    waterCapCurrent,
+    waterCapNew,
+    currentUser,
+  ]);
 
   async function handleClick(e) {
     e.preventDefault();
@@ -66,10 +90,17 @@ const Water = () => {
       count: waterNew,
       timestamp: date,
     };
-    const val = await axios.post(
-      "http://localhost:8000/api/water/current",
-      payload
-    );
+    let token = await currentUser.getIdToken();
+
+    const val = await axios.post("http://localhost:8000/api/water/current", {
+      payload,
+      headers: {
+        accept: "application/json",
+        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": "multipart/form-data",
+        authtoken: token,
+      },
+    });
 
     setWaterCurrent(waterNew);
     console.log("New Water: ", val.data.water.waterCurrent);
@@ -86,11 +117,18 @@ const Water = () => {
 
   async function handleClickCap(e) {
     e.preventDefault();
+    let token = await currentUser.getIdToken();
+
     let payload = { id: currentUser.email, count: waterCapNew };
-    const val = await axios.post(
-      "http://localhost:8000/api/water/cap",
-      payload
-    );
+    const val = await axios.post("http://localhost:8000/api/water/cap", {
+      payload,
+      headers: {
+        accept: "application/json",
+        "Accept-Language": "en-US,en;q=0.8",
+        "Content-Type": "multipart/form-data",
+        authtoken: token,
+      },
+    });
 
     setWaterCapCurrent(waterCapNew);
     setWaterCurrent(0);
