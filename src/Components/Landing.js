@@ -103,6 +103,7 @@ function Landing() {
                           variant="top"
                           style={{ padding: "15px", width: 207, height: 207 }}
                           src={waterlogo}
+                          alt="water logo"
                         />
                       ) : (
                         <div
@@ -129,8 +130,8 @@ function Landing() {
                           </CircularProgressbarWithChildren>
                         </div>
                       )}
-                      <p>Total water had today</p>
                     </Card.Text>
+                    <Card.Text> Total water had today</Card.Text>
                     <Card.Body>
                       <Card.Title>Water</Card.Title>
                     </Card.Body>
@@ -153,6 +154,7 @@ function Landing() {
                           variant="top"
                           style={{ padding: "15px", width: 207, height: 207 }}
                           src={food}
+                          alt="dish logo"
                         />
                       ) : (
                         <div
@@ -181,8 +183,8 @@ function Landing() {
                           </CircularProgressbarWithChildren>
                         </div>
                       )}
-                      <p>Total calories had today</p>
                     </Card.Text>
+                    <Card.Text>Total calories had today</Card.Text>
                     <Card.Body>
                       <Card.Title>Food</Card.Title>
                     </Card.Body>
@@ -205,9 +207,8 @@ function Landing() {
                         alt="account"
                         src={account}
                       />
-                      <p>Edit Your Profile</p>
                     </Card.Text>
-
+                    <Card.Text> Edit Your Profile</Card.Text>
                     <Card.Body>
                       <Card.Title>Account Module</Card.Title>
                     </Card.Body>
@@ -230,8 +231,8 @@ function Landing() {
                         alt="history"
                         src={history}
                       />
-                      <p>Check Your History</p>
                     </Card.Text>
+                    <Card.Text> Check Your History</Card.Text>
                     <Card.Body>
                       <Card.Title>History Module</Card.Title>
                     </Card.Body>
