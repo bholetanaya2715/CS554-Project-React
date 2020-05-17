@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, Component } from "react";
 import logo from "./images/icon.png";
 import "./App.css";
 import Water from "./Components/Water";
+import About from "./Components/About";
+
 import FoodMain from "./Components/foodMain";
 import HomePage from "./Components/homePage";
 import ErrorNotFound from "./Components/pageNotFound";
@@ -21,11 +23,11 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
-          <header className="App-header">
+          {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>Hello, welcome aboard to a healthy life</p>
             <Navigation />
-          </header>
+          </header> */}
 
           <div className="App-body">
             {/* <Link className="App-link" to="/">
@@ -51,7 +53,8 @@ function App() {
               <PrivateRoute path="/water" exact component={Water} />
               <PrivateRoute path="/foodMain" exact component={FoodMain} />
               <PrivateRoute path="/account" exact component={Account} />
-              <PrivateRoute path='/foodHistory' exact component={FoodHistory} />
+              <PrivateRoute path="/about" exact component={About} />
+              <PrivateRoute path="/foodHistory" exact component={FoodHistory} />
 
               <Route component={ErrorNotFound}></Route>
             </Switch>

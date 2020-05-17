@@ -14,6 +14,15 @@ const NavigationAuth = () => (
     <nav className="navigation">
       <NavLink
         exact
+        to="/"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        Dashboard
+      </NavLink>
+      <NavLink
+        exact
         to="/water"
         activeClassName="active"
         className="showlink"
@@ -41,12 +50,21 @@ const NavigationAuth = () => (
       </NavLink>
       <NavLink
         exact
+        to="/about"
+        activeClassName="active"
+        className="showlink"
+        style={{ marginRight: "10px" }}
+      >
+        How to Use / About Us
+      </NavLink>
+      <NavLink
+        exact
         to="/foodHistory"
         activeClassName="active"
         className="showlink"
         style={{ marginRight: "10px" }}
       >
-        Food History
+        History
       </NavLink>
       <SignOutButton />
     </nav>
