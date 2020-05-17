@@ -16,6 +16,7 @@ async function newAccount(email, userName) {
     height: 0,
     targetToBeAchieved: 0,
     current: null,
+    waterArchive: [],
     water: {
       waterGoal: 0,
       waterCurrent: 0,
@@ -131,16 +132,18 @@ async function addHeightWeight(
     );
   }
   //-------------------------
-  
+
   if (status.modifiedCount > 0) {
-    return await getUserByUserId(userId)
+    return await getUserByUserId(userId);
   }
   //Changes for multiple attempts
-  if ((status.modifiedCount === 0 || status.modifiedCount == undefined) && status.matchedCount == 1) {
+  if (
+    (status.modifiedCount === 0 || status.modifiedCount == undefined) &&
+    status.matchedCount == 1
+  ) {
     console.log("Multiple attempts to update information");
-  }
-  else {
-    throw "Error: user was not updated"
+  } else {
+    throw "Error: user was not updated";
   }
 }
 
