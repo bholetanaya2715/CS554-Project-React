@@ -23,6 +23,7 @@ import { doCreateUserWithEmailAndPassword } from "../firebase/FirebaseFunctions"
 import { AuthContext } from "../firebase/Auth";
 import SocialSignIn from './SocialSignin'
 import Axios from "axios";
+
 //css helper function
 
 function SignUp() {
@@ -116,14 +117,14 @@ function SignUp() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("../assets/img/test2.jpg") + ")"
+            backgroundImage: "url(" + require("../assets/img/test3.jpg") + ")"
           }}
         ></div>
         <div className="content">
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <form onSubmit={handleSignUp}>
+                <form autocomplete="new-password" onSubmit={handleSignUp}>
                   <CardBody>
                     <InputGroup
                       className={
@@ -138,12 +139,16 @@ function SignUp() {
                       </InputGroupAddon>
                       <Input
                         required
+                        id="displayName"
                         name="displayName"
                         placeholder="Display Name"
                         type="text"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
+                      <label for="displayName">
+
+                      </label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -165,6 +170,9 @@ function SignUp() {
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
+                      <label for="email">
+
+                      </label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -187,6 +195,9 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
+                    <label for="passwordOne">
+
+                    </label>
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -208,6 +219,9 @@ function SignUp() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
+                    <label for="passwordTwo">
+
+                    </label>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button

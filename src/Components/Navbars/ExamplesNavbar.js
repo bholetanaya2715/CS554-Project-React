@@ -79,7 +79,7 @@ function ExamplesNavbar() {
                   Login
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="navdeep">
                 <NavLink to="/signup" tag={Link}>
                   Create Account
                 </NavLink>

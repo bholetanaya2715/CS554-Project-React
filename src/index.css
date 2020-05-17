@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.btn-round{
+  background-color: #007cc1 !important;
+}
+
+.nav-link{
+  border-radius: 25px;
+  padding: 20px;
+ 
+  background-color: #c38a00;
+  ; 
+}
+
+nav{
+  font-size: large;
+  font-weight: bolder;
+  background-color: #ffffff;  
+}
+

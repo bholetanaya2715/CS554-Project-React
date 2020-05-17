@@ -79,7 +79,7 @@ function SignIn() {
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <form onSubmit={handleLogin}>
+                <form autocomplete="new-password" onSubmit={handleLogin}>
                   <CardBody>
                     <InputGroup
                       className={
@@ -101,6 +101,7 @@ function SignIn() {
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
+                      <label for="email"></label>
                     </InputGroup>
                     <InputGroup
                       className={
@@ -123,6 +124,7 @@ function SignIn() {
                         onBlur={() => setLastFocus(false)}
                       ></Input>
                     </InputGroup>
+                    <label for="password"></label>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
