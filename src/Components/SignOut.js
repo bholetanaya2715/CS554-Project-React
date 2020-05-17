@@ -5,9 +5,11 @@ import Button from "react-bootstrap/Button";
 
 const SignOutButton = () => {
   return (
-    <button type="button" onClick={doSignOut} className="showlink">
-      Sign Out
-    </button>
+    <a href="/signin">
+      <button type="button" onClick={doSignOut} className="showlink">
+        Sign Out
+      </button>
+    </a>
   );
 };
 
