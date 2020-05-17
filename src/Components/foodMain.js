@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { Carousel, Modal, Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Carousel, Modal, Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -18,6 +18,7 @@ const FoodMain = (props) => {
   const [message, setMessage] = useState(undefined);
   const [show, setShow] = useState(false);
   const [targetList, setTargetList] = useState([]);
+  const [showError, setShowError] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +31,11 @@ const FoodMain = (props) => {
 
   const errorMessage = (food) => {
     return <div>Cannot find information for {food}</div>;
+  };
+
+  const toggleMessage = () => {
+    setMessage(null)
+    setShowError(false)
   };
 
   const buildCarouselItem = (list) => {
@@ -158,6 +164,7 @@ const FoodMain = (props) => {
       if (response.name == "Error") {
         console.log("in this condition");
         setMessage(errorMessage(foodQuery));
+        setShowError(true)
       }
       console.log("foodData is");
       console.log(foodData);
@@ -311,7 +318,7 @@ const FoodMain = (props) => {
           </Col>
 
           <Col> 
-                  {circularBar}
+              {circularBar}
           </Col>
 
         </Row>
@@ -339,7 +346,7 @@ const FoodMain = (props) => {
                 );
             })}
             <form onSubmit={handleSubmit}>
-                  <label>
+                  <label className="food-font">
                       What did you eat today?
                       <br></br>
                       <input type="text" value={foodQuery} onChange={handleChange} placeholder="Blueberry cheesecake" />
@@ -349,6 +356,14 @@ const FoodMain = (props) => {
             </form>
           </Col>
           <Col md={4}></Col>
+        </Row>
+        <Row>
+          <Toast show={showError} onClose={toggleMessage}>
+            <Toast.Header className="foodM">
+              <div>Error !</div>
+            </Toast.Header>
+            <Toast.Body>{message}</Toast.Body>
+          </Toast>
         </Row>
       </Container>
       {/** 

@@ -79,7 +79,7 @@ function SignIn() {
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <form autocomplete="new-password" onSubmit={handleLogin}>
+                <form onSubmit={handleLogin}>
                   <CardBody>
                     <InputGroup
                       className={
