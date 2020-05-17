@@ -6,7 +6,8 @@ import { AuthContext } from "../firebase/Auth";
 import Button from "react-bootstrap/Button";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Int32 } from "mongodb";
+import Navigation from "./Navigation";
+import logo from "../images/icon.png";
 
 const Water = () => {
   const [waterNew, setWaterNew] = useState(undefined);
@@ -21,7 +22,7 @@ const Water = () => {
   var d = new Date();
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
   var percentage = Math.ceil((waterCurrent / waterCapCurrent) * 100);
-  console.log(Int32((waterCurrent / waterCapCurrent) * 100));
+  // console.log(Int32((waterCurrent / waterCapCurrent) * 100));
 
   useEffect(() => {
     console.log("render");
@@ -112,7 +113,7 @@ const Water = () => {
                 // max={10}
                 onCountChange={(count) => {
                   setWaterCapNew(count);
-                  setWaterCapCurrent(count);
+                  // setWaterCapCurrent(waterCapNew);
                 }}
               />
             </div>

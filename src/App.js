@@ -1,5 +1,5 @@
-import React from "react";
-import logo from "./icon.png";
+import React, { useState, useEffect, useContext, Component } from "react";
+import logo from "./images/icon.png";
 import "./App.css";
 import Water from "./Components/Water";
 import FoodMain from "./Components/foodMain";
@@ -7,14 +7,14 @@ import HomePage from "./Components/homePage";
 import ErrorNotFound from "./Components/pageNotFound";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignUp from "./Components/SignUp";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./Components/SignIn";
 import { AuthProvider } from "./firebase/Auth";
-import ChangePassword from "./Components/ChangePassword";
 import Navigation from "./Components/Navigation";
 import PrivateRoute from "./Components/PrivateRoutes";
 import Landing from "./Components/Landing";
 import Account from "./Components/Account";
+import FoodHistory from "./Components/foodHistory";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <p>For a healthy lifestyle</p>
+            <p>Hello, welcome aboard to a healthy life</p>
             <Navigation />
           </header>
 
@@ -51,6 +51,8 @@ function App() {
               <PrivateRoute path="/water" exact component={Water} />
               <PrivateRoute path="/foodMain" exact component={FoodMain} />
               <PrivateRoute path="/account" exact component={Account} />
+              <PrivateRoute path='/foodHistory' exact component={FoodHistory} />
+
               <Route component={ErrorNotFound}></Route>
             </Switch>
           </div>
