@@ -70,9 +70,7 @@ function Landing() {
   ]);
 
   if (currentUser == null) {
-    return (
-      <Redirect to='/signin'></Redirect>
-    );
+    return <Redirect to="/signin"></Redirect>;
   } else {
     return (
       <div>
@@ -89,7 +87,7 @@ function Landing() {
         <div style={{ marginTop: "30px" }}>
           <Container>
             <Row>
-              <Col xs={4} md={3}>
+              <Col xs={6} md={3} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/water"
@@ -134,12 +132,12 @@ function Landing() {
                       <p>Total water had today</p>
                     </Card.Text>
                     <Card.Body>
-                      <Card.Title>Water Module</Card.Title>
+                      <Card.Title>Water</Card.Title>
                     </Card.Body>
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={4} md={3}>
+              <Col xs={6} md={3} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/foodMain"
@@ -186,12 +184,12 @@ function Landing() {
                       <p>Total calories had today</p>
                     </Card.Text>
                     <Card.Body>
-                      <Card.Title>FOod Module</Card.Title>
+                      <Card.Title>Food</Card.Title>
                     </Card.Body>
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={4} md={3}>
+              <Col xs={6} md={3} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/account"
@@ -200,19 +198,23 @@ function Landing() {
                   style={{ marginRight: "10px" }}
                 >
                   <Card>
-                    <Card.Img
-                      style={{ padding: "25px" }}
-                      variant="top"
-                      alt="account"
-                      src={account}
-                    />
+                    <Card.Text>
+                      <Card.Img
+                        variant="top"
+                        style={{ padding: "15px", width: 207, height: 207 }}
+                        alt="account"
+                        src={account}
+                      />
+                      <p>Edit Your Profile</p>
+                    </Card.Text>
+
                     <Card.Body>
                       <Card.Title>Account Module</Card.Title>
                     </Card.Body>
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={4} md={3}>
+              <Col xs={6} md={3} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/foodHistory"
@@ -221,12 +223,15 @@ function Landing() {
                   style={{ marginRight: "10px" }}
                 >
                   <Card>
-                    <Card.Img
-                      style={{ padding: "25px" }}
-                      variant="top"
-                      alt="history"
-                      src={history}
-                    />
+                    <Card.Text>
+                      <Card.Img
+                        style={{ padding: "15px", width: 207, height: 207 }}
+                        variant="top"
+                        alt="history"
+                        src={history}
+                      />
+                      <p>Check Your History</p>
+                    </Card.Text>
                     <Card.Body>
                       <Card.Title>History Module</Card.Title>
                     </Card.Body>
