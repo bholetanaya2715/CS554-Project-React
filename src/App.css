@@ -76,3 +76,24 @@
 .error-text {
     color:red
 }
+
+.carousel-style{
+    margin: 20px;
+    background-color: #282c34;
+    color: azure;
+}
+
+.carousel-item{
+    height:180px
+}
+
+.carousel-text{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+svg.CircularProgressbar{
+    margin-top: 65px;
+    height:180px
+}
