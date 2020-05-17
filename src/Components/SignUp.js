@@ -123,7 +123,7 @@ function SignUp() {
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <form autocomplete="new-password" onSubmit={handleSignUp}>
+                <form onSubmit={handleSignUp}>
                   <CardBody>
                     <InputGroup
                       className={
@@ -138,6 +138,7 @@ function SignUp() {
                       </InputGroupAddon>
                       <Input
                         required
+                        pattern="[A-Za-z]{1,15}"
                         id="displayName"
                         name="displayName"
                         placeholder="Display Name"
