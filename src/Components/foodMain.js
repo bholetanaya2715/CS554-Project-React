@@ -336,7 +336,7 @@ const FoodMain = (props) => {
               foodData.map((food) => {
                 return(
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={food.photo.thumb} />
+                    <Card.Img variant="top" src={food.photo.thumb} alt={food.food_name}/>
                     <Card.Body>
                       <Card.Title>{food.food_name}</Card.Title>
                       <Card.Text>
