@@ -102,7 +102,7 @@ svg.CircularProgressbar.foodMain{
     width: 500px;
 }
 
-div.toast-header{
+div.toast-header.foodM{
     background-color: rgba(250, 224, 222);
     color:red
 }

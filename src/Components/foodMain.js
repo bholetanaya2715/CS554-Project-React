@@ -359,7 +359,7 @@ const FoodMain = (props) => {
         </Row>
         <Row>
           <Toast show={showError} onClose={toggleMessage}>
-            <Toast.Header>
+            <Toast.Header className="foodM">
               <div>Error !</div>
             </Toast.Header>
             <Toast.Body>{message}</Toast.Body>
