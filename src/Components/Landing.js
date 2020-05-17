@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 import axios from "axios";
@@ -46,9 +46,7 @@ function Landing() {
 
   if (currentUser == null) {
     return (
-      <div>
-        <p>Login to access dashboard</p>
-      </div>
+      <Redirect to='/signin'></Redirect>
     );
   } else {
     return (
