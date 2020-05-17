@@ -50,13 +50,7 @@ function ExamplesNavbar() {
         <Container>
 
           <div className="navbar-translate">
-            <NavbarBrand
-              href="https://demos.creative-tim.com/now-ui-kit-react/index?ref=nukr-examples-navbar"
-              target="_blank"
-              id="navbar-brand"
-            >
 
-            </NavbarBrand>
 
             <button
               className="navbar-toggler navbar-toggler"
@@ -83,7 +77,7 @@ function ExamplesNavbar() {
                   Login
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="navdeep">
                 <NavLink to="/signup" tag={Link}>
                   Create Account
                 </NavLink>
