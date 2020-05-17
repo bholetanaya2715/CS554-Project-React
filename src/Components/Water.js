@@ -50,18 +50,20 @@ const Water = () => {
             count: 0,
             timestamp: date,
           };
-          const val = await axios.post(
-            "http://localhost:8000/api/water/current",
-            {
-              payload,
-              headers: {
-                accept: "application/json",
-                "Accept-Language": "en-US,en;q=0.8",
-                "Content-Type": "multipart/form-data",
-                authtoken: token,
-              },
-            }
-          );
+
+          let config = {
+            method: "post",
+            url: "http://localhost:8000/api/water/current",
+            data: payload,
+            headers: {
+              accept: "application/json",
+              "Accept-Language": "en-US,en;q=0.8",
+              "Content-Type": "application/json",
+              authtoken: token,
+            },
+          };
+          const { val } = await axios(config);
+
           setWaterCurrent(0);
         }
         setWaterCapCurrent(data.water.waterGoal);
@@ -92,18 +94,20 @@ const Water = () => {
     };
     let token = await currentUser.getIdToken();
 
-    const val = await axios.post("http://localhost:8000/api/water/current", {
-      payload,
+    let config = {
+      method: "post",
+      url: "http://localhost:8000/api/water/current",
+      data: payload,
       headers: {
         accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         authtoken: token,
       },
-    });
+    };
+    const { val } = await axios(config);
 
     setWaterCurrent(waterNew);
-    console.log("New Water: ", val.data.water.waterCurrent);
   }
 
   async function handleClickButState(e) {
@@ -118,22 +122,24 @@ const Water = () => {
   async function handleClickCap(e) {
     e.preventDefault();
     let token = await currentUser.getIdToken();
-
     let payload = { id: currentUser.email, count: waterCapNew };
-    const val = await axios.post("http://localhost:8000/api/water/cap", {
-      payload,
+
+    let config = {
+      method: "post",
+      url: "http://localhost:8000/api/water/cap",
+      data: payload,
       headers: {
         accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         authtoken: token,
       },
-    });
+    };
+    const { val } = await axios(config);
 
     setWaterCapCurrent(waterCapNew);
     setWaterCurrent(0);
     setButState(false);
-    console.log("New Water Cap: ", val.data.water.waterGoal);
   }
 
   return (
@@ -149,7 +155,7 @@ const Water = () => {
         {waterCapCurrent === 0 || waterCapCurrent === null ? (
           <div>
             <p>
-              <b>Set New Water Capacity</b>
+              <b>Set New Total Number of Glasses</b>
             </p>
             <div className="outer">
               <CounterInput
@@ -169,7 +175,16 @@ const Water = () => {
               <p style={{ fontSize: "20px" }}>Update Value</p>
             ) : (
               <div>
-                <p>New Water Cap: {waterCapNew}</p>
+                <p>
+                  {" "}
+                  <b
+                    style={{
+                      fontWeight: 400,
+                    }}
+                  >
+                    New Glass Quantity: {waterCapNew}
+                  </b>
+                </p>
 
                 <Button
                   variant="primary"
@@ -181,7 +196,15 @@ const Water = () => {
               </div>
             )}
 
-            <p>Current Water Cap is 0</p>
+            <p>
+              <b
+                style={{
+                  fontWeight: 400,
+                }}
+              >
+                Current Number of Glasses Per Day is 0
+              </b>
+            </p>
           </div>
         ) : (
           <div>
@@ -226,7 +249,15 @@ const Water = () => {
               <p style={{ fontSize: "20px" }}>Update Value</p>
             ) : (
               <div>
-                <p style={{ fontSize: "20px" }}>New Water: {waterNew}</p>
+                <p style={{ fontSize: "20px" }}>
+                  <b
+                    style={{
+                      fontWeight: 400,
+                    }}
+                  >
+                    New Glass Quantity: {waterNew}
+                  </b>
+                </p>
 
                 <Button
                   variant="primary"
@@ -238,7 +269,9 @@ const Water = () => {
               </div>
             )}
 
-            <p style={{ fontWeight: 700 }}>Water Had so far: {waterCurrent}</p>
+            <p style={{ fontWeight: 700 }}>
+              Glasses Had So Far: {waterCurrent}
+            </p>
             <div>
               {waterCurrent === waterCapCurrent ? (
                 <p>
@@ -289,7 +322,17 @@ const Water = () => {
                   <p style={{ fontSize: "20px" }}> Update Value</p>
                 ) : (
                   <div>
-                    <p>New Water Cap: {waterCapNew}</p>
+                    <p>
+                      {" "}
+                      <b
+                        style={{
+                          fontWeight: 400,
+                        }}
+                      >
+                        {" "}
+                        New Glass Quantity: {waterCapNew}
+                      </b>
+                    </p>
 
                     <Button
                       variant="primary"
@@ -306,7 +349,7 @@ const Water = () => {
             )}
 
             <p style={{ fontWeight: 700 }}>
-              Water Cap for today: {waterCapCurrent}
+              Total Number of Glasses To Drink Today: {waterCapCurrent}
             </p>
           </div>
         )}

@@ -44,6 +44,7 @@ function Account() {
         setUserTarget(data.targetToBeAchieved); //Changes for target
         setUserAge(data.age); //Changes for age
         setUserGender(data.gender); //Changes for age
+        console.log(userGender);
 
         // console.log(userData);
       } catch (e) {
@@ -103,10 +104,10 @@ function Account() {
         heightData: height.value,
         targetData: target.value, //Changes for target
         ageData: age.value, //Changes for age
-        genderData: gender.value, //Changes for gender
+        genderData: userGender, //Changes for gender
       };
+      console.log(information.genderData);
     }
-    console.log(information);
 
     try {
       let token = await currentUser.getIdToken();
@@ -135,12 +136,13 @@ function Account() {
   };
   return (
     <div>
-      {userWeight === 0 ? (
+      {userWeight === 0 || userWeight === undefined ? (
         <header className="App-header">
           <a href="/">
             <img src={logo} className="App-logo" alt="logo" />
           </a>
           <p>to a healthy life</p>
+          <SignOutButton />
         </header>
       ) : (
         <header className="App-header">
@@ -152,42 +154,66 @@ function Account() {
         </header>
       )}
 
-      <h2>Account Page</h2>
+      <h2>{userName}</h2>
       <form onSubmit={addInforamtion}>
         <div className="form-group">
           <label>Email : </label>
           <label> {currentUser.email}</label>
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Name : </label>
           <label> {userName}</label>
-        </div>
+        </div> */}
         <div className="form-group">
           <label>
             Your Height (In cm):
-            <input
-              min="1"
-              className="form-control"
-              id="height"
-              required
-              name="height"
-              type="number"
-              placeholder={userHeight}
-            />
+            {userHeight === 0 || userHeight === undefined ? (
+              <input
+                min="1"
+                className="form-control"
+                id="height"
+                required
+                name="height"
+                type="number"
+                placeholder={userHeight}
+              />
+            ) : (
+              <input
+                min="1"
+                className="form-control"
+                id="height"
+                defaultValue={userHeight}
+                name="height"
+                type="number"
+                placeholder={userHeight}
+              />
+            )}
           </label>
         </div>
         <div className="form-group">
           <label>
             Your Weight (In Kg):
-            <input
-              min="1"
-              className="form-control"
-              id="weight"
-              required
-              name="weight"
-              type="number"
-              placeholder={userWeight}
-            />
+            {userWeight === 0 || userWeight === undefined ? (
+              <input
+                min="1"
+                className="form-control"
+                id="weight"
+                required
+                name="weight"
+                type="number"
+                placeholder={userWeight}
+              />
+            ) : (
+              <input
+                min="1"
+                className="form-control"
+                id="weight"
+                defaultValue={userWeight}
+                name="weight"
+                type="number"
+                placeholder={userWeight}
+              />
+            )}
           </label>
         </div>
 
@@ -195,51 +221,104 @@ function Account() {
         <div className="form-group">
           <label>
             Age :
-            <input
-              className="form-control"
-              id="age"
-              min="1"
-              required
-              name="age"
-              type="number"
-              placeholder={userAge}
-            />
+            {userAge === 0 || userAge === undefined ? (
+              <input
+                min="1"
+                className="form-control"
+                id="age"
+                required
+                name="age"
+                type="number"
+                placeholder={userAge}
+              />
+            ) : (
+              <input
+                min="1"
+                className="form-control"
+                id="age"
+                defaultValue={userAge}
+                name="age"
+                type="number"
+                placeholder={userAge}
+              />
+            )}
           </label>
         </div>
         <div className="form-group">
-          <label>
-            Gender :
-            <br />
-            Female&nbsp;
-            <input
-              type="radio"
-              name="gender"
-              id="gender"
-              required
-              value={"Female"}
-              onChange={onGenderChange}
-            />
-            &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
-            <input
-              type="radio"
-              name="gender"
-              id="gender"
-              value={"Male"}
-              onChange={onGenderChange}
-            />
-          </label>
+          {userGender === "" ||
+          userGender === null ||
+          userGender === undefined ? (
+            <label>
+              Gender :
+              <br />
+              Female&nbsp;
+              <input
+                type="radio"
+                name="gender"
+                id="gender"
+                required
+                value={"Female"}
+                onChange={onGenderChange}
+              />
+              &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+              <input
+                type="radio"
+                name="gender"
+                required
+                id="gender"
+                value={"Male"}
+                onChange={onGenderChange}
+              />
+            </label>
+          ) : (
+            <label>
+              Gender :
+              <br />
+              Female&nbsp;
+              <input
+                type="radio"
+                name="gender"
+                id="gender"
+                value={"Female"}
+                onChange={onGenderChange}
+              />
+              &nbsp;&nbsp;&nbsp;&nbsp; Male&nbsp;
+              <input
+                type="radio"
+                name="gender"
+                id="gender"
+                value={"Male"}
+                onChange={onGenderChange}
+              />
+            </label>
+          )}
         </div>
         <div className="form-group">
           <label>
             Your Target Calories per day :
-            <input
-              min="1"
-              className="form-control"
-              id="target"
-              name="target"
-              type="number"
-              placeholder={userTarget}
-            />
+            {userTarget === 0 ||
+            userTarget === undefined ||
+            userTarget === null ? (
+              <input
+                min="1"
+                className="form-control"
+                id="calorie"
+                required
+                name="target"
+                type="number"
+                placeholder={userTarget}
+              />
+            ) : (
+              <input
+                min="1"
+                className="form-control"
+                id="calorie"
+                defaultValue={userTarget}
+                name="target"
+                type="number"
+                placeholder={userTarget}
+              />
+            )}
           </label>
           <br />
           Not sure of calories? Leave it blank for now!
@@ -249,13 +328,13 @@ function Account() {
           Add Information
         </button>
       </form>
-      <p>
+      {/* <p>
         For security reasons (at the time) you need to add Height, Weight and
         Age everytime to change a single value
-      </p>
+      </p> */}
       <Button
         variant="primary"
-        style={{ marginBottom: "15px", marginTop: "5px" }}
+        style={{ marginBottom: "15px", marginTop: "15px" }}
         onClick={handleClickButState}
       >
         Update Password
