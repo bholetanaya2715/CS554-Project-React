@@ -303,7 +303,6 @@ function Account() {
                 min="1"
                 className="form-control"
                 id="calorie"
-                required
                 name="target"
                 type="number"
                 placeholder={userTarget}
