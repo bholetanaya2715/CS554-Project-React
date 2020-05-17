@@ -83,6 +83,7 @@ router.post("/user/addInforamtion", async (req, res) => {
     );
     res.json(user);
   } catch (e) {
+    console.log(e)
     res.status(500).json(e);
   }
 });

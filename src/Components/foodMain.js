@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { Button, Modal } from 'react-bootstrap';
+
 
 
 import Navigation from "./Navigation";
@@ -12,10 +14,15 @@ const FoodMain = (props) => {
   const [foodData, setFoodData] = useState(undefined);
   const [foodQuery, setFoodQuery] = useState("");
   const [message, setMessage] = useState(undefined);
+  const [show, setShow] = useState(false);
+  const [targetList, setTargetList] = useState([]);
+
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const { currentUser } = useContext(AuthContext);
-  console.log(userData);
   const userId = currentUser.providerData[0].email;
-  console.log("userid is " + currentUser.providerData[0].email);
 
   var d = new Date();
   var date = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
@@ -43,7 +50,18 @@ const FoodMain = (props) => {
     res
       .json()
       .then((res) => {
+        //incomplete code
+        let BMR;
         console.log("response is " + res);
+        if(!res.height || !res.weight || !res.age || !res.gender){
+          setShow(true)
+        }
+        if(res.gender == "Female"){
+          BMR = 447.593 + (9.247 * res.weight) + (3.098 * res.height) - (4.330 * res.age)
+        }
+        else if(res.gender == "Male"){
+          BMR = 88.362 + (13.397 * res.weight) + (4.799 * res.height) - (5.677 * res.age)
+        }
         if (res.targetToBeAchieved == null) {
           res.targetToBeAchieved = 2000;
           res.current = 0;
@@ -213,6 +231,34 @@ const FoodMain = (props) => {
 
   return (
     <div>
+
+
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header >
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Hi ! Looks like you missed to fill in some information!
+          <br></br>
+          Please click<NavLink
+                        exact
+                        to="/account"
+                        activeClassName="active"
+                        className="showlink"
+                    >here
+                    </NavLink>to fill in all the details
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button> */}
+          {/* <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button> */}
+        </Modal.Footer>
+      </Modal>
+
+
+
       <header className="App-header">
         <a href="/">
           <img src={logo} className="App-logo" alt="logo" />
@@ -233,15 +279,15 @@ const FoodMain = (props) => {
                         to="/account"
                         activeClassName="active"
                         className="showlink"
-                        style={{ marginRight: "10px" }}
+                        style={{ marginRight: "2px" }}
                     >here
                     </NavLink>to change your daily target
                 </p>
                 <p>
                 {userData && userData.current > 0 ? (
-                    <p>Your target for today is {userData && userData.current}</p>
+                    <div>Your target for today is {userData && userData.current}</div>
                 ) : (
-                    <p className="error-text">You've overrun your today's target by {userData && userData.current*-1} calories</p>
+                    <div className="error-text">You've overrun your today's target by {userData && userData.current*-1} calories</div>
                 )}
         
                 </p>
