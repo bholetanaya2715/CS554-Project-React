@@ -87,7 +87,7 @@ function Landing() {
         <div style={{ marginTop: "30px" }}>
           <Container>
             <Row>
-              <Col xs={6} md={3} sm={6} lg={3}>
+              <Col xs={6} md={6} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/water"
@@ -137,7 +137,7 @@ function Landing() {
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={6} md={3} sm={6} lg={3}>
+              <Col xs={6} md={6} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/foodMain"
@@ -189,7 +189,7 @@ function Landing() {
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={6} md={3} sm={6} lg={3}>
+              <Col xs={6} md={6} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/account"
@@ -214,7 +214,7 @@ function Landing() {
                   </Card>
                 </NavLink>
               </Col>
-              <Col xs={6} md={3} sm={6} lg={3}>
+              <Col xs={6} md={6} sm={6} lg={3}>
                 <NavLink
                   exact
                   to="/foodHistory"
