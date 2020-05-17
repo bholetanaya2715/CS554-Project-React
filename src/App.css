@@ -97,3 +97,31 @@ svg.CircularProgressbar.foodMain{
     margin-top: 65px;
     height:180px
 }
+
+.toast{
+    width: 500px;
+}
+
+div.toast-header.foodM{
+    background-color: rgba(250, 224, 222);
+    color:red
+}
+
+.food-font{
+    font-family: cursive;
+    font-size: larger;
+    font-weight: 500;
+    margin: 20px;
+
+}
+
+.row-border{
+    padding: 5px;
+    margin-bottom: 20px;
+    border-bottom:1px solid #ccc
+}
+
+.head-font{
+    font-size: larger;
+}
+

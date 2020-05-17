@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { Carousel, Modal, Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Carousel, Modal, Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -18,6 +18,7 @@ const FoodMain = (props) => {
   const [message, setMessage] = useState(undefined);
   const [show, setShow] = useState(false);
   const [targetList, setTargetList] = useState([]);
+  const [showError, setShowError] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +31,11 @@ const FoodMain = (props) => {
 
   const errorMessage = (food) => {
     return <div>Cannot find information for {food}</div>;
+  };
+
+  const toggleMessage = () => {
+    setMessage(null)
+    setShowError(false)
   };
 
   const buildCarouselItem = (list) => {
@@ -158,6 +164,7 @@ const FoodMain = (props) => {
       if (response.name == "Error") {
         console.log("in this condition");
         setMessage(errorMessage(foodQuery));
+        setShowError(true)
       }
       console.log("foodData is");
       console.log(foodData);
@@ -265,7 +272,9 @@ const FoodMain = (props) => {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Hi ! Looks like you missed to fill in some information!
+          <div className="food-font">
+              Hi ! Looks like you missed to fill in some information!
+          </div>
           <br></br>
           
           <NavLink
@@ -292,11 +301,14 @@ const FoodMain = (props) => {
       </header>
 
       <Container>
-        <Row>
+        <Row className="row-border">
 
           <Col md={8}>
-            <strong>Your daily target is currently set to {userData && userData.targetToBeAchieved} calories per day</strong>
-            <br/>Based on your height, weight, age and gender, the following recommendations are made
+            <strong className="head-font">Your daily target is currently set to {userData && userData.targetToBeAchieved} calories per day</strong>
+            <br/>
+            <div>
+              Based on your height, weight, age and gender, the following recommendations are made
+            </div>
             <Carousel className="carousel-style">
               {li}
             </Carousel>
@@ -311,7 +323,7 @@ const FoodMain = (props) => {
           </Col>
 
           <Col> 
-                  {circularBar}
+              {circularBar}
           </Col>
 
         </Row>
@@ -322,13 +334,9 @@ const FoodMain = (props) => {
           <Col>
             {!message && foodData &&
               foodData.map((food) => {
-                //return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
-                //        <img alt={food.food_name} src={food.photo.thumb}></img>
-                //      </dt>
-                //      );
                 return(
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={food.photo.thumb} />
+                    <Card.Img variant="top" src={food.photo.thumb} alt={food.food_name}/>
                     <Card.Body>
                       <Card.Title>{food.food_name}</Card.Title>
                       <Card.Text>
@@ -339,7 +347,7 @@ const FoodMain = (props) => {
                 );
             })}
             <form onSubmit={handleSubmit}>
-                  <label>
+                  <label className="food-font">
                       What did you eat today?
                       <br></br>
                       <input type="text" value={foodQuery} onChange={handleChange} placeholder="Blueberry cheesecake" />
@@ -349,6 +357,14 @@ const FoodMain = (props) => {
             </form>
           </Col>
           <Col md={4}></Col>
+        </Row>
+        <Row>
+          <Toast show={showError} onClose={toggleMessage}>
+            <Toast.Header className="foodM">
+              <div>Error !</div>
+            </Toast.Header>
+            <Toast.Body>{message}</Toast.Body>
+          </Toast>
         </Row>
       </Container>
       {/** 
@@ -382,15 +398,7 @@ const FoodMain = (props) => {
                 </div>
                 <div>
 
-                    <dl className='list-unstyled'>
-                        {!message && foodData &&
-                            foodData.map((food) => {
-                                return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
-                                    <img alt={food.food_name} src={food.photo.thumb}></img>
-                                </dt>
-                              );
-                        })}
-                    </dl>
+                    
 
                     {message}
 
