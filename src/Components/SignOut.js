@@ -5,12 +5,12 @@ import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 
 const SignOutButton = () => {
-  return (
-    <a href="/signin">
-      <button type="button" onClick={doSignOut} className="showlink">
-        Sign Out
+    return (
+        <a href="/signin">
+            <button type="button" onClick={doSignOut} className="showlink">
+                Sign Out
       </button>
-    </a>
-  );
-
+        </a>
+    );
+}
 export default SignOutButton;
