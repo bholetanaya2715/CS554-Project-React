@@ -272,7 +272,9 @@ const FoodMain = (props) => {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Hi ! Looks like you missed to fill in some information!
+          <div className="food-font">
+              Hi ! Looks like you missed to fill in some information!
+          </div>
           <br></br>
           
           <NavLink
@@ -299,11 +301,14 @@ const FoodMain = (props) => {
       </header>
 
       <Container>
-        <Row>
+        <Row className="row-border">
 
           <Col md={8}>
-            <strong>Your daily target is currently set to {userData && userData.targetToBeAchieved} calories per day</strong>
-            <br/>Based on your height, weight, age and gender, the following recommendations are made
+            <strong className="head-font">Your daily target is currently set to {userData && userData.targetToBeAchieved} calories per day</strong>
+            <br/>
+            <div>
+              Based on your height, weight, age and gender, the following recommendations are made
+            </div>
             <Carousel className="carousel-style">
               {li}
             </Carousel>
@@ -329,10 +334,6 @@ const FoodMain = (props) => {
           <Col>
             {!message && foodData &&
               foodData.map((food) => {
-                //return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
-                //        <img alt={food.food_name} src={food.photo.thumb}></img>
-                //      </dt>
-                //      );
                 return(
                   <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={food.photo.thumb} />
@@ -397,15 +398,7 @@ const FoodMain = (props) => {
                 </div>
                 <div>
 
-                    <dl className='list-unstyled'>
-                        {!message && foodData &&
-                            foodData.map((food) => {
-                                return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
-                                    <img alt={food.food_name} src={food.photo.thumb}></img>
-                                </dt>
-                              );
-                        })}
-                    </dl>
+                    
 
                     {message}
 

@@ -108,8 +108,20 @@ div.toast-header.foodM{
 }
 
 .food-font{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: cursive;
     font-size: larger;
     font-weight: 500;
+    margin: 20px;
+
+}
+
+.row-border{
+    padding: 5px;
+    margin-bottom: 20px;
+    border-bottom:1px solid #ccc
+}
+
+.head-font{
+    font-size: larger;
 }
 
