@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { Carousel, Modal, Container, Row, Col, Card } from 'react-bootstrap';
+import { Carousel, Modal, Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -279,7 +279,7 @@ const FoodMain = (props) => {
           
         </Modal.Body>
         <Modal.Footer>
-          Do we need a
+          
         </Modal.Footer>
       </Modal>
 
@@ -342,10 +342,10 @@ const FoodMain = (props) => {
                   <label>
                       What did you eat today?
                       <br></br>
-                      <input type="text" value={foodQuery} onChange={handleChange} />
+                      <input type="text" value={foodQuery} onChange={handleChange} placeholder="Blueberry cheesecake" />
                   </label>
                   <br></br>
-                  <input type="submit" value="Submit" />
+                  <Button variant="dark" type="submit" value="Submit">Submit</Button>
             </form>
           </Col>
           <Col md={4}></Col>
