@@ -53,7 +53,7 @@ const FoodMain = (props) => {
   });
   var circularBar;
   if(userData && userData.targetToBeAchieved){
-    circularBar = <CircularProgressbar styles={{path : {stroke: '#282c34'}, text : {fill : '#282c34',fontSize : '8px'}}}
+    circularBar = <CircularProgressbar className="foodMain" styles={{path : {stroke: '#282c34'}, text : {fill : '#282c34',fontSize : '8px'}}}
                      value={(userData.targetToBeAchieved - userData.current)} maxValue={userData.targetToBeAchieved}
                      text={`${userData && parseInt(userData.current)} calories left!` }/>;
           
@@ -267,16 +267,16 @@ const FoodMain = (props) => {
         <Modal.Body>
           Hi ! Looks like you missed to fill in some information!
           <br></br>
-          Please click
+          
           <NavLink
             exact
             to="/account"
             activeClassName="active"
             className="showlink"
           >
-            here
+            Please click here to fill in all the details
           </NavLink>
-          to fill in all the details
+          
         </Modal.Body>
         <Modal.Footer>
           Do we need a

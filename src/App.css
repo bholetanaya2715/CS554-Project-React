@@ -93,7 +93,7 @@
     align-items: center;
 }
 
-svg.CircularProgressbar{
+svg.CircularProgressbar.foodMain{
     margin-top: 65px;
     height:180px
 }
