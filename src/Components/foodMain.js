@@ -52,7 +52,7 @@ const FoodMain = (props) => {
     return buildCarouselItem(show);
   });
   var circularBar;
-  if(userData && userData.targetToBeAchieved && userData.current){
+  if(userData && userData.targetToBeAchieved){
     circularBar = <CircularProgressbar styles={{path : {stroke: '#282c34'}, text : {fill : '#282c34',fontSize : '8px'}}}
                      value={(userData.targetToBeAchieved - userData.current)} maxValue={userData.targetToBeAchieved}
                      text={`${userData && parseInt(userData.current)} calories left!` }/>;
@@ -94,8 +94,11 @@ const FoodMain = (props) => {
           setTargetList(list);
         if (res.targetToBeAchieved == null) {
           res.targetToBeAchieved = BMR*1.55;
-          res.current = 0;
           updateTarget(res.userId, BMR*1.55);
+          updateCurrent(res.userId, res.targetToBeAchieved);
+        }
+        if(res.current == null){
+          updateCurrent(res.userId, res.targetToBeAchieved);
         }
         if (res.water.timestamp !== date) {
           updateTimestamp(res, date);
