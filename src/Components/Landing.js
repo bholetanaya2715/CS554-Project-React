@@ -83,7 +83,9 @@ function Landing() {
             <img src={logo} className="App-logo" alt="logo" />
           </a>
           <p>to a healthy life</p>
-          <h3>Hello {userName}! Welcome to your Dashboard</h3>
+          <p style={{ fontSize: "30px" }}>
+            Hello {userName}! Welcome to your Dashboard
+          </p>
         </header>
 
         <div style={{ marginTop: "30px" }}>
@@ -203,6 +205,7 @@ function Landing() {
                     <Card.Img
                       style={{ padding: "25px" }}
                       variant="top"
+                      alt="account"
                       src={account}
                     />
                     <Card.Body>
@@ -223,6 +226,7 @@ function Landing() {
                     <Card.Img
                       style={{ padding: "25px" }}
                       variant="top"
+                      alt="history"
                       src={history}
                     />
                     <Card.Body>

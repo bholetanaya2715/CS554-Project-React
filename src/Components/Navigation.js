@@ -64,7 +64,7 @@ const NavigationAuth = () => (
         className="showlink"
         style={{ marginRight: "10px" }}
       >
-        Food History
+        History
       </NavLink>
       <SignOutButton />
     </nav>
