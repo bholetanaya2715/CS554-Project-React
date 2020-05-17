@@ -2,7 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../firebase/Auth";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
+import { Carousel, Modal, Container, Row, Col, Card } from 'react-bootstrap';
+import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+
+
 import Navigation from "./Navigation";
 import logo from "../images/icon.png";
 
@@ -27,6 +32,33 @@ const FoodMain = (props) => {
     return <div>Cannot find information for {food}</div>;
   };
 
+  const buildCarouselItem = (list) => {
+		return (
+      <Carousel.Item>
+        <div className="d-block w-100 carousel-text">
+          If you are {list.name} <br/>
+          Your daily recommended calories are {list.cal} calories
+        </div>
+        <Carousel.Caption>
+          Recommended by Utah.gov
+        </Carousel.Caption>
+      </Carousel.Item>
+		);
+  };
+  
+  const li =
+    targetList &&
+    targetList.map((show) => {
+    return buildCarouselItem(show);
+  });
+  var circularBar;
+  if(userData && userData.targetToBeAchieved && userData.current){
+    circularBar = <CircularProgressbar styles={{path : {stroke: '#282c34'}, text : {fill : '#282c34',fontSize : '8px'}}}
+                     value={(userData.targetToBeAchieved - userData.current)} maxValue={userData.targetToBeAchieved}
+                     text={`${userData && parseInt(userData.current)} calories left!` }/>;
+          
+  }
+  
   async function fetchData() {
     let token = await currentUser.getIdToken();
     const res = await fetch("http://localhost:8000/api/" + userId, {
@@ -43,21 +75,27 @@ const FoodMain = (props) => {
       .then((res) => {
         //incomplete code
         let BMR;
+        let list = [];
         console.log("response is " + res);
         if (!res.height || !res.weight || !res.age || !res.gender) {
           setShow(true);
         }
-        if (res.gender == "Female") {
-          BMR =
-            447.593 + 9.247 * res.weight + 3.098 * res.height - 4.33 * res.age;
-        } else if (res.gender == "Male") {
-          BMR =
-            88.362 + 13.397 * res.weight + 4.799 * res.height - 5.677 * res.age;
+        if(res.gender == "Female"){
+          BMR = 655 + (4.3 * res.weight) + (4.7 * res.height) - (4.7 * res.age)
         }
+        else if(res.gender == "Male"){
+          BMR = 66 + (6.3 * res.weight) + (12.9 * res.height) - (6.8 * res.age)
+        }
+          list.push({"name" : "Sedentary (little or no exercise)", "cal" : parseInt(BMR*1.2)})
+          list.push({"name" : "Lightly active (light exercise/sports 1-3 days/week)", "cal" : parseInt(BMR*1.375)})
+          list.push({"name" : "Moderately active (moderate exercise/sports 3-5 days/week)", "cal" : parseInt(BMR*1.55)})
+          list.push({"name" : "Very active (hard exercise/sports 6-7 days a week) ", "cal" : parseInt(BMR*1.2)})
+          list.push({"name" : "Extra active (very hard exercise/sports & physical job or 2x training) ", "cal" : parseInt(BMR*1.9)})
+          setTargetList(list);
         if (res.targetToBeAchieved == null) {
-          res.targetToBeAchieved = 2000;
+          res.targetToBeAchieved = BMR*1.55;
           res.current = 0;
-          updateTarget(res.userId, 2000);
+          updateTarget(res.userId, BMR*1.55);
         }
         if (res.water.timestamp !== date) {
           updateTimestamp(res, date);
@@ -219,8 +257,8 @@ const FoodMain = (props) => {
 
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header >
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -238,12 +276,7 @@ const FoodMain = (props) => {
           to fill in all the details
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button> */}
-          {/* <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button> */}
+          Do we need a
         </Modal.Footer>
       </Modal>
 
@@ -254,69 +287,114 @@ const FoodMain = (props) => {
         <p>to a healthy life</p>
         <Navigation />
       </header>
-      <div className="show-body">
-        <h1 className="cap-first-letter"></h1>
-        <p>Hi {userData && userData.displayName}</p>
-        <p>
-          Your daily target is {userData && userData.targetToBeAchieved}
-          <br></br>
-          Click
-          <NavLink
-            exact
-            to="/account"
-            activeClassName="active"
-            className="showlink"
-            style={{ marginRight: "2px" }}
-          >
-            here
-          </NavLink>
-          to change your daily target
-        </p>
-        <p>
-          {userData && userData.current > 0 ? (
-            <div>Your target for today is {userData && userData.current}</div>
-          ) : (
-            <div className="error-text">
-              You've overrun your today's target by{" "}
-              {userData && userData.current * -1} calories
-            </div>
-          )}
-        </p>
-        <div>
-          <dl className="list-unstyled">
-            {!message &&
-              foodData &&
+
+      <Container>
+        <Row>
+
+          <Col md={8}>
+            <strong>Your daily target is currently set to {userData && userData.targetToBeAchieved} calories per day</strong>
+            <br/>Based on your height, weight, age and gender, the following recommendations are made
+            <Carousel className="carousel-style">
+              {li}
+            </Carousel>
+            <NavLink
+              exact
+              to="/account"
+              activeClassName="active"
+              className="showlink"
+              style={{ marginRight: "2px" }}
+            >Click here to change your daily target
+            </NavLink>
+          </Col>
+
+          <Col> 
+                  {circularBar}
+          </Col>
+
+        </Row>
+
+
+        <Row>
+          <Col md={4}></Col>
+          <Col>
+            {!message && foodData &&
               foodData.map((food) => {
-                return (
-                  <dt key={food.food_name}>
-                    {food.food_name} had {food.nf_calories} calories
-                    <img alt={food.food_name} src={food.photo.thumb}></img>
-                  </dt>
+                //return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
+                //        <img alt={food.food_name} src={food.photo.thumb}></img>
+                //      </dt>
+                //      );
+                return(
+                  <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={food.photo.thumb} />
+                    <Card.Body>
+                      <Card.Title>{food.food_name}</Card.Title>
+                      <Card.Text>
+                        {food.food_name} had {food.nf_calories} calories
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 );
-              })}
-          </dl>
+            })}
+            <form onSubmit={handleSubmit}>
+                  <label>
+                      What did you eat today?
+                      <br></br>
+                      <input type="text" value={foodQuery} onChange={handleChange} />
+                  </label>
+                  <br></br>
+                  <input type="submit" value="Submit" />
+            </form>
+          </Col>
+          <Col md={4}></Col>
+        </Row>
+      </Container>
+      {/** 
+      <div className='show-body'>
+                <h1 className='cap-first-letter'></h1>
+                <p>
+                    Hi {userData && userData.displayName}
+                </p>
+                <p>
+                    Your daily target is {userData && userData.targetToBeAchieved}
+                    <br></br>
+                    Click<NavLink
+                        exact
+                        to="/account"
+                        activeClassName="active"
+                        className="showlink"
+                        style={{ marginRight: "2px" }}
+                    >here
+                    </NavLink>to change your daily target
+                </p>
+                <p>
+                {userData && userData.current > 0 ? (
+                    <div>Your target for today is {userData && userData.current}</div>
+                ) : (
+                    <div className="error-text">You've overrun your today's target by {userData && userData.current*-1} calories</div>
+                )}
+        
+                </p>
+                <div>
+                  <ul className='list-unstyled'>{li}</ul>
+                </div>
+                <div>
 
-          {message}
-        </div>
-        {/*<form onSubmit={handleSubmit(onSubmit)}>
-                    What did you eat today?
-                    <input name="example" defaultValue="test" ref={register} />
-                
-                
-                
-                    <input type="submit" />
-                    </form> */}
+                    <dl className='list-unstyled'>
+                        {!message && foodData &&
+                            foodData.map((food) => {
+                                return (<dt key={food.food_name}>{food.food_name} had {food.nf_calories} calories
+                                    <img alt={food.food_name} src={food.photo.thumb}></img>
+                                </dt>
+                              );
+                        })}
+                    </dl>
 
-        <form onSubmit={handleSubmit}>
-          <label>
-            What did you eat today?
-            <br></br>
-            <input type="text" value={foodQuery} onChange={handleChange} />
-          </label>
-          <br></br>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+                    {message}
+
+                </div>
+
+                
+            </div> */}
     </div>
   );
 };
