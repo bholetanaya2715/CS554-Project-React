@@ -131,10 +131,16 @@ async function addHeightWeight(
     );
   }
   //-------------------------
+  
   if (status.modifiedCount > 0) {
-    return await getUserByUserId(userId);
-  } else {
-    throw "Error: user was not updated";
+    return await getUserByUserId(userId)
+  }
+  //Changes for multiple attempts
+  if ((status.modifiedCount === 0 || status.modifiedCount == undefined) && status.matchedCount == 1) {
+    console.log("Multiple attempts to update information");
+  }
+  else {
+    throw "Error: user was not updated"
   }
 }
 
