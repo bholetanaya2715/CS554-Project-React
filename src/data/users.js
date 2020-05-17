@@ -114,8 +114,13 @@ async function addHeightWeight(userId, weight, height, displayName, target, age,
     status = await userCollections.updateOne({ userId: userId }, { $set: { height: height, weight: weight, targetToBeAchieved: target, age:age, gender:gender } })
   }
   //-------------------------
+  
   if (status.modifiedCount > 0) {
     return await getUserByUserId(userId)
+  }
+  //Changes for multiple attempts
+  if ((status.modifiedCount === 0 || status.modifiedCount == undefined) && status.matchedCount == 1) {
+    console.log("Multiple attempts to update information");
   }
   else {
     throw "Error: user was not updated"
