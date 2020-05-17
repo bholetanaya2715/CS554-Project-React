@@ -107,7 +107,7 @@ function Account() {
         heightData: height.value,
         targetData: target.value, //Changes for target
         ageData: age.value, //Changes for age
-        genderData: gender.value, //Changes for gender
+        genderData: userGender, //Changes for gender
       };
       console.log(information.genderData);
     }

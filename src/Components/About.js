@@ -111,6 +111,15 @@ const About = () => {
           Made with ♥ by Deep, Sejal, Parth, Malav, Kunj
         </p>
       </div>
+      <div>
+        <p
+          style={{
+            fontWeight: 400,
+          }}
+        >
+          LOGIN UI Template CREDITS: https://www.creative-tim.com/product/now-ui-kit
+        </p>
+      </div>
     </div>
   );
 };
