@@ -40,11 +40,12 @@ async function chartHistory(id) {
   if (!Array.isArray(user.food)) return "No Diet History available for user";
 
   user.food.map((i) => {
-    chartObj.calories = i[0].nf_calories;
-    chartObj.consumedAt = i[0].consumed_at.slice(0, 10);
+    let chartObj = {
+      calories: i[0].nf_calories,
+      consumedAt: i[0].consumed_at.slice(0, 10),
+    };
     chartdata.push(chartObj);
   });
-
   return chartdata;
 }
 

@@ -54,9 +54,15 @@ const FoodHistory = () => {
         <p>to a healthy life</p>
         <Navigation />
       </header>
-      <div style={{ width: "400px", heigh: "400px" }}>
+      <div style={{ width: "700px", heigh: "700px", align: "center" }}>
         <VictoryChart>
-          <VictoryBar data={chartData} x="consumedAt" y="calories" />
+          <VictoryBar
+            domain={{ y: [0, 1000] }}
+            data={chartData}
+            alignment="start"
+            x="consumedAt"
+            y="calories"
+          />
         </VictoryChart>
       </div>
       <div>

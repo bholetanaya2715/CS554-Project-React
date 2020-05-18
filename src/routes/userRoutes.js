@@ -143,7 +143,6 @@ router.get("/chart/:id", async (req, res) => {
   var id = req.params.id;
   try {
     const data = await pdf.chartHistory(id);
-    console.log(data);
     res.json(data);
   } catch (e) {
     console.error(e);
