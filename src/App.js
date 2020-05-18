@@ -3,7 +3,6 @@ import logo from "./images/icon.png";
 import "./App.css";
 import Water from "./Components/Water";
 import About from "./Components/About";
-
 import FoodMain from "./Components/foodMain";
 import HomePage from "./Components/homePage";
 import ErrorNotFound from "./Components/pageNotFound";

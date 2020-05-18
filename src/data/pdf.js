@@ -11,7 +11,7 @@ var path = require('path')
 async function foodHistory(id) {
     var result = ""
     let user = await userData.getUserByUserId(id)
-
+    let chartdata = [];
     if (!user) throw "No user exist with the given email id"
     if (!Array.isArray(user.food)) return "No Diet History available for user"
 
@@ -26,6 +26,26 @@ async function foodHistory(id) {
 
     return result
 }
+
+async function chartHistory(id) {
+    let user = await userData.getUserByUserId(id)
+    let chartdata = [];
+    let chartObj = {}
+    if (!user) throw "No user exist with the given email id"
+    if (!Array.isArray(user.food)) return "No Diet History available for user"
+
+    user.food.map((i) => {
+
+        chartObj.calories = i[0].nf_calories
+        chartObj.consumedAt = i[0].consumed_at
+
+        chartdata.push(chartObj)
+
+    })
+
+    return chartdata
+}
+
 
 async function waterHistory(id) {
     var waterResult = ""
@@ -155,5 +175,6 @@ async function pdfDoc(email) {
 }
 
 module.exports = {
-    pdfDoc
+    pdfDoc,
+    chartHistory
 }

@@ -140,4 +140,14 @@ router.get('/pdf/:id', async (req, res) => {
   }
 })
 
+router.get('/chart/:id', async (req, res) => {
+  var id = req.params.id;
+  try {
+    const data = await pdf.chartHistory(id)
+    res.json(data)
+  } catch (e) {
+    console.error(e)
+  }
+})
+
 module.exports = router;
