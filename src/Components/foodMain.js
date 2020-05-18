@@ -98,7 +98,8 @@ const FoodMain = (props) => {
           list.push({"name" : "Very active (hard exercise/sports 6-7 days a week) ", "cal" : parseInt(BMR*1.2)})
           list.push({"name" : "Extra active (very hard exercise/sports & physical job or 2x training) ", "cal" : parseInt(BMR*1.9)})
           setTargetList(list);
-        if (res.targetToBeAchieved == null) {
+          console.log(res.targetToBeAchieved)
+        if (res.targetToBeAchieved == null || res.targetToBeAchieved == 0) {
           res.targetToBeAchieved = BMR*1.55;
           updateTarget(res.userId, BMR*1.55);
           updateCurrent(res.userId, res.targetToBeAchieved);
