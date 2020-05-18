@@ -32,7 +32,8 @@
     "react-scripts": "3.4.1",
     "reactstrap": "^8.4.1",
     "redis": "^3.0.2",
-    "shards-react": "^1.0.3"
+    "shards-react": "^1.0.3",
+    "victory": "^34.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
