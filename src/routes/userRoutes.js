@@ -6,10 +6,10 @@ const accountMethods = data.account;
 const waterMethods = data.water;
 const foodHistory = data.history;
 const pdf = data.pdf;
-var path = require('path');
-const checkAuth = require("./checkAuth")
-const fs = require("fs")
-const del = require('del');
+var path = require("path");
+const checkAuth = require("./checkAuth");
+const fs = require("fs");
+const del = require("del");
 
 router.post("/adduser", async (req, res) => {
   console.log(req.body.email);
@@ -87,7 +87,7 @@ router.post("/user/addInforamtion", async (req, res) => {
     );
     res.json(user);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500).json(e);
   }
 });
@@ -109,9 +109,9 @@ router.get("/foodHistory/:id", async (req, res) => {
 /**
  * Get user's diet history
  */
-router.post('/pdf/:id', async (req, res) => {
+router.post("/pdf/:id", async (req, res) => {
   const id = req.params.id;
-  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + '_history.pdf')
+  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + "_history.pdf");
 
   try {
     const deletedPaths = await del([resPath]);
@@ -119,35 +119,35 @@ router.post('/pdf/:id', async (req, res) => {
     // console.log('Deleted files and directories:\n', deletedPaths.join('\n'));
 
     await pdf.pdfDoc(id);
-    res.json('Success');
+    res.json("Success");
   } catch (e) {
-    console.log('e', e)
+    console.log("e", e);
   }
+});
 
-})
-
-router.get('/pdf/:id', async (req, res) => {
+router.get("/pdf/:id", async (req, res) => {
   var id = req.params.id;
-  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + '_history.pdf')
+  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + "_history.pdf");
   try {
     if (fs.existsSync(resPath)) {
-      res.sendFile(resPath)
+      res.sendFile(resPath);
     } else {
-      throw "File does not exist."
+      throw "File does not exist.";
     }
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
-})
+});
 
-router.get('/chart/:id', async (req, res) => {
+router.get("/chart/:id", async (req, res) => {
   var id = req.params.id;
   try {
-    const data = await pdf.chartHistory(id)
-    res.json(data)
+    const data = await pdf.chartHistory(id);
+    console.log(data);
+    res.json(data);
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
-})
+});
 
 module.exports = router;
