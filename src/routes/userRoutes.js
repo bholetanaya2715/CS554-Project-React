@@ -106,39 +106,6 @@ router.get("/foodHistory/:id", async (req, res) => {
   }
 });
 
-/**
- * Get user's diet history
- */
-router.post("/pdf/:id", async (req, res) => {
-  const id = req.params.id;
-  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + "_history.pdf");
-
-  try {
-    const deletedPaths = await del([resPath]);
-
-    // console.log('Deleted files and directories:\n', deletedPaths.join('\n'));
-
-    await pdf.pdfDoc(id);
-    res.json("Success");
-  } catch (e) {
-    console.log("e", e);
-  }
-});
-
-router.get("/pdf/:id", async (req, res) => {
-  var id = req.params.id;
-  let resPath = path.join(__dirname, "../GeneratedPDF/" + id + "_history.pdf");
-  try {
-    if (fs.existsSync(resPath)) {
-      res.sendFile(resPath);
-    } else {
-      throw "File does not exist.";
-    }
-  } catch (e) {
-    console.error(e);
-  }
-});
-
 router.get("/chart/:id", async (req, res) => {
   var id = req.params.id;
   try {

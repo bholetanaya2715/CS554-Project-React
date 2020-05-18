@@ -40,9 +40,9 @@ const FoodHistory = () => {
   async function createPdf(e) {
     e.preventDefault();
     const val = await axios.post(
-      "http://localhost:8000/api/pdf/" + String(currentUser.email)
+      "http://localhost:8000/web/pdf/" + String(currentUser.email)
     );
-    window.open("http://localhost:8000/api/pdf/" + String(currentUser.email));
+    window.open("http://localhost:8000/web/pdf/" + String(currentUser.email));
   }
 
   return (
