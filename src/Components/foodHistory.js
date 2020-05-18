@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Navigation from "./Navigation";
 import logo from "../images/icon.png";
-import { VictoryBar, VictoryChart } from "victory";
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLabel } from "victory";
 
 const FoodHistory = () => {
   const { currentUser } = useContext(AuthContext);
@@ -54,8 +54,14 @@ const FoodHistory = () => {
         <p>to a healthy life</p>
         <Navigation />
       </header>
-      <div style={{ width: "700px", heigh: "700px", align: "center" }}>
-        <VictoryChart>
+      <div style={{ width: "500px", heigh: "500px", align: "center" }}>
+        <VictoryChart theme={VictoryTheme.material}>
+          <VictoryLabel
+            text="X: Date vs Y: Calories"
+            x={225}
+            y={30}
+            textAnchor="middle"
+          />
           <VictoryBar
             domain={{ y: [0, 1000] }}
             data={chartData}
