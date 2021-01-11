@@ -1,6 +1,4 @@
-### Well Being - Track your life
-
-## 554 Project 
+### CS 554 Project Well Being - Track your life
 
 A project which will deliver, the capacity to track nutrient value of food being entered, using various external API searches and we have used React for the FrontEnd <br>
 Developed a full stack web-based application with MERN (Mongo DB, Express, React, Node) to build a food calorie tracker through a nutrition API <br>
