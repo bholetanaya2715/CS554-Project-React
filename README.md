@@ -12,7 +12,7 @@ How to Run the app -<br>
 `node server.js`
 `npm start`
 
-[Project Plan Document](https://github.com/parthxparab/CS554-Project-React/blob/master/Final%20Project%20Technical%20Implementation%20Plan.pdf)
+[Project Plan Document](https://github.com/parthxparab/CS554-Project-React/blob/master/Final%20Project%20Technical%20Implementation%20Plan.pdf) <br>
 [Project Video Link](https://youtu.be/VbmTrQ-rY5U)
 
 
