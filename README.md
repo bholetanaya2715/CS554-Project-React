@@ -1,9 +1,13 @@
 ### CS 554 Project Well Being - Track your life
 
+CS 554 Web Programming II taught by Professor Patrick Hill at Stevens Institute of Technology for Spring 2020 <br>
+
 A project which will deliver, the capacity to track nutrient value of food being entered, using various external API searches and we have used React for the FrontEnd <br>
 Developed a full stack web-based application with MERN (Mongo DB, Express, React, Node) to build a food calorie tracker through a nutrition API <br>
 Designed a Dashboard layout and secure login utilizing Firebase with Social Logins and employed Redis Server to cache top 15 frequent requests from API for faster access <br>
 Applied Victory.js and PDF Kit to generate 6 live Graphs on data populated on MongoDB and generate a report of calorie consumption of user on request <br>
+
+Technologies - MongoDb, Express, React, Node, AJAX, Firebase, Victory.js, PDFKit, JQuery, JSON
 
 How to Run the app -<br>
 `redis-server`
