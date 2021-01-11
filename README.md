@@ -1,4 +1,4 @@
-### CS 554 Project Well Being - Track your life
+## CS 554 Project Well Being - Track your life
 
 CS 554 Web Programming II taught by Professor Patrick Hill at Stevens Institute of Technology for Spring 2020 <br>
 
